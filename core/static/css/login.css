@@ -1,0 +1,137 @@
+:root{
+  --liner-background:linear-gradient(279.79deg, rgba(231, 231, 222, 0.35) 1.67%, rgba(231, 231, 222, 0) 27.62%), linear-gradient(46.02deg, #00587A -16.58%, rgba(0, 88, 122, 0.8) -16.57%, #00587A -16.56%, rgba(0, 88, 122, 0.757724) 7.86%, rgba(0, 88, 122, 0.609538) 22.39%, rgba(0, 88, 122, 0) 55.15%), linear-gradient(253.41deg, rgba(0, 136, 145, 0.6) 7.43%, rgba(0, 136, 145, 0) 31.12%), linear-gradient(256.89deg, rgba(0, 136, 145, 0.6) 3.81%, rgba(0, 136, 145, 0.56668) 8.93%, rgba(0, 136, 145, 0.546011) 16.84%, rgba(0, 136, 145, 0.45) 39.77%, rgba(0, 136, 145, 0) 100.59%), linear-gradient(144.2deg, rgba(231, 231, 222, 0.85) 11.01%, rgba(231, 231, 222, 0.731282) 11.01%, rgba(231, 231, 222, 0.17) 24.69%);
+  
+  --white: rgba(255, 255, 255, 1);
+  --white-glassmorphism: rgba(231, 231, 222, 0.35);
+  --black: rgba(0, 0, 0, 1);
+  --blue: rgba(0, 136, 145, 1);
+
+ 
+
+  /* tipografia */
+  --ff-Merriweather: 'Merriweather Sans', sans-serif; 
+
+  --flm: 20px;
+  --frm: 50px;
+
+
+  --fw-300: 300;
+  --fw-400: 400;
+
+  /*transição*/
+
+  --transition: 0.25s ease-in-out;
+} 
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body{
+  background:var(--liner-background);
+}
+header {
+  position: relative;
+  padding: 20px 0px;
+
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  display: flex;
+
+  
+}
+ .container{
+  position: absolute;
+  width: 850px;
+  height: 700px;
+  margin-left: 340px;
+  /* margin-right: 260px;  */
+
+  background: var(--white-glassmorphism);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--white-glassmorphism);
+  opacity: 0.8;
+  border: 1px solid rgba(251, 251, 234, 0.2);
+  box-shadow: 4px 0px 11px rgba(255, 255, 255, 0.05),
+              0px 4px 11px rgba(255, 255, 255, 0.05),
+              inset 4px 0px 11px rgba(255, 255, 255, 0.05), 
+              inset 0px 4px 11px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(50px);
+}
+
+.logo{
+  width: 147px;
+  height: 147.78px;
+  padding-left: 355px; 
+  margin-top: -400px;
+}
+img {
+  left: 373px;
+  position: absolute;
+}
+.inputs-login{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: -103px;
+  gap: 21px;
+}
+#usuario, #senha{
+  width: 400px;
+  height: 58px;
+  background: var(--white);
+  border: 0;
+  border-radius: 10px;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.15);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  
+}
+
+.btn-login{
+  width: 299px;
+  height: 73px;
+  margin-left: -345px;
+  margin-top: 281px;
+  background: var(--blue);
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.25), inset 0px 4px 4px rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  border: 0;
+  font-family: var(--ff-Merriweather);
+  font-style: normal;
+  font-weight: var(--fw-400);
+  font-size: var(--frm);
+  color: var(--white);
+}
+a{
+  color: var(--black);
+  font-family: var(--ff-Merriweather);
+  font-size: var(--flm);
+  font-weight: var(--fw-300);
+  line-height: 25px;
+}
+.esqueci-senha{
+  position:absolute;
+  margin-top:400px ;
+  left: 356px;
+}
+.check-login{
+  position: absolute;
+  width: 205px;
+  height: 25px;
+  left: 356px;
+  top: 656px;
+  align-items: center;
+}
+label[for=logado]{
+font-family: var(--ff-Merriweather);
+font-weight: var(--fw-300);
+line-height: 25px;
+color:var(--black);
+}
