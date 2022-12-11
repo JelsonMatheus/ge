@@ -1,0 +1,62 @@
+[
+{
+  "model": "core.usuario",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$LS0wdPVvg5OY3BS5od6G8A$52+xccB98G4r0YnS2nFTNEho9lSO3NJTE016KeAiRwU=",
+    "last_login": "2022-12-11T13:12:02.132Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-12-11T12:48:50.106Z",
+    "cpf": "",
+    "tipo": "P",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.usuario",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$OfDvACFiB7HsZszvbmzizm$42ZoghYSJtN8m3L++Eg8U7raVRQXm8frg8b/JjEkkqU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jelson",
+    "first_name": "Jelson",
+    "last_name": "Matheus da Silva Araujo",
+    "email": "jelson@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-12-11T13:12:05Z",
+    "cpf": "08197162352",
+    "tipo": "D",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.usuario",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$BqYEVBvuPKJnmlrrpHwv7l$A7NtzUSG6HCB2jJbrgvAAxrWrsZZKiymI3HsbW5cNiQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "arielle",
+    "first_name": "Arielle",
+    "last_name": "Kellen",
+    "email": "Arielle@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-12-11T13:14:15Z",
+    "cpf": "11111111111",
+    "tipo": "P",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

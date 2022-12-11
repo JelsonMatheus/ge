@@ -44,4 +44,6 @@ venv.bak/
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
->>>>>>> 6e18e21074493ccc5fa487d0da1bf702cfe2c7a8
+
+# Database
+db.sqlite3

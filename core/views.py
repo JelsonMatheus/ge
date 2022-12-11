@@ -1,9 +1,16 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
-TEMPLATE_DIRS = (
-    'os.path.join(BASE_DIR,"templates")'
-)
-def index(request):
-    return render(request,"index.html")
+
+class BaseView(LoginRequiredMixin):
+    login_url = '/auth/login/'
+
+
+class IndexView(BaseView, TemplateView):
+    template_name = 'core/index.html'
+
+
+class CoreLoginView(LoginView):
+    template_name = 'core/registration/login.html'
