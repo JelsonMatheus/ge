@@ -1,0 +1,76 @@
+{% load static widget_tweaks %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- link do css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    
+    <!-- link do google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Merriweather+Sans:wght@300;400&display=swap"
+        rel="stylesheet" />
+
+    <title>Login</title>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <form action="{% url 'core:login' %}?next=/" method="POST"> {% csrf_token %}
+                <div class="logo text-center">
+                    <img src="{% static 'imagens/logo.png' %}" alt="G.E logo" />
+                </div>
+            
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger mx-5" role="alert" style="font-size: 0.9em;" >
+                    {{ form.non_field_errors}}
+                </div>
+                {% endif %}
+
+                <div class="inputs">
+                    <div class="input-group mb-3">
+                        {{ form.username.errors }}
+                        <span class="input-group-text">
+                            <i class="bi bi-person-fill"></i>
+                        </span>
+                        {% render_field form.username class+="form-control" placeholder="Username" %}
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form.password.errors }}
+                        <span class="input-group-text">
+                            <i class="bi bi-lock-fill"></i>
+                        </span>
+                        {% render_field form.password class+="form-control" placeholder="Senha" %}
+                    </div>
+                </div>
+
+
+                <div class="text-center">
+                    <button class="btn btn-login">Login</button>
+                    <div class="mt-2">
+                        <a class="esqueci-senha" href="url">Esqueci minha senha</a>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <div class="check-login">
+                        <input type="checkbox" id="logado" name="logado" />
+                        <label for="logado"> Mantenha conectado</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+
+</html>
