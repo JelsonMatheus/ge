@@ -1,0 +1,108 @@
+
+/********** Colors ***********/
+:root {
+    --color-primary: #0777a3;
+    --color-primary-dark: #00587a;
+    --color-secondary: #a6705d;
+    --color-text: #fff;
+    --navbar-height: 3rem;
+}
+
+body {
+    height: 100vh;
+    background: #f5f5dc;
+}
+
+.wrapper {
+    height: calc(100% - var(--navbar-height));
+}
+
+.wrapper>.row {
+    height: auto;
+}
+
+.navbar {
+    height: var(--navbar-height);
+    background: white  !important;
+}
+
+.navbar-brand {
+    height: var(--navbar-height);
+    color: var(--color-text)  !important;
+    background: var(--color-primary);
+    font-size: 1rem;
+}
+
+.navbar-toggler-icon {
+    font-size: 0.8rem;
+}
+
+#sidebarMenu {
+    background: var(--color-primary-dark);
+}
+
+#sidebarMenu .nav-link {
+    color: white;
+}
+
+#sidebarMenu .nav-link.active {
+    background: var(--color-secondary);
+    color: black;
+}
+
+#sidebarMenu .nav-link:hover {
+    background: var(--color-secondary);
+    color: black;
+}
+
+.table > thead {
+    background: var(--color-secondary);
+}
+.table > tbody tr:nth-child(odd) {
+    background: #e6e2dc !important;
+}
+
+.page-item.active .page-link {
+    border: black;
+}
+
+.page-item .page-link {
+    color: black;
+}
+
+.bi-pencil-square {
+    color: blue;
+}
+
+.toast-danger {
+    background: red;
+    color: white;
+}
+.toast-succes {
+    background: rgb(71, 131, 71);
+    color: white
+}
+.icon {
+    font-size: 18px;
+}
+
+select[readonly] {
+    background: #eee; /*Simular campo inativo - Sugestão @GabrielRodrigues*/
+    pointer-events: none;
+    touch-action: none;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    main>.container {
+        border: 1px solid var(--border-color);
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+
+    .wrapper > .row {
+        height: 100%;
+    }
+}

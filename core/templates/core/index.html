@@ -1,42 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/home.css">
+{% extends 'core/base/base.html' %}
+{% load static %}
 
-    <!-- font awesome -->
-    <script src="https://kit.fontawesome.com/50cab0d7de.js" crossorigin="anonymous"></script>
-    <title>Home</title>
-</head>
-<body>
-        <table border="0">
-            <tr class="nav">
-                <th class="nav-admin nav-item"> <i class="fa-solid fa-bars"></i> ADMIN</th>
-                <th class="nav-logo nav-item"><img class="logo-ge icone-header" src="../static/imagens/logo-ge.png" alt="logo ge"></th>
-                <th class="nav-sair nav-item"><img class="icone-header" src="../static/imagens/singout.png" alt="deslogar"></th>
-            </tr>
-            <tr>
-                <td class="nav-column"><a href="#"><i class="fa-solid fa-house-chimney"></i> Home</a></td>
-            </tr>
-            <tr>
-                <td class="nav-column"><a href="#"><i class="fa-solid fa-users-line"></i> Servidores </a></td>
-            </tr>
-            <tr>
-                <td class="nav-column"><a href="#"><i class="fa-solid fa-book-open-reader"></i> Alunos </a></td>
-            </tr>
-            <tr>
-                <td class="nav-column"><a href="#"><i class="fa-solid fa-user-plus"></i>  Matrícula </a></td>
-            </tr>
-            <tr>
-                <td class="nav-column"><a href="#"><i class="fa-solid fa-book"></i> Turmas </a></td>
-            </tr>
-            <tr>
-                <td class="nav-column"><a href="#"><i class="fa-solid fa-square-poll-vertical"></i> Relatórios</a></td>
-            </tr>
-        </table>
+{% block title %}GE - HOME {% endblock %}
 
-    </main>
-</body>
-</html>
+{% block content %} 
+<h2>Conteudo</h2>
+{% endblock %}
