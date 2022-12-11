@@ -14,3 +14,5 @@ class IndexView(BaseView, TemplateView):
 
 class CoreLoginView(LoginView):
     template_name = 'core/registration/login.html'
+    redirect_authenticated_user = True
+    next_page = 'core:index'
