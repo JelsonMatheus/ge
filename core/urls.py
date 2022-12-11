@@ -5,5 +5,6 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('auth/login/', views.CoreLoginView.as_view(), name='login')
+    path('auth/login/', views.CoreLoginView.as_view(), name='login'),
+    path('auth/logout/', views.CoreLogoutView.as_view(), name='logout'),
 ]

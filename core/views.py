@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -16,6 +16,13 @@ class CoreLoginView(LoginView):
     """
     template_name = 'core/registration/login.html'
     redirect_authenticated_user = True
+    next_page = 'core:index'
+
+
+class CoreLogoutView(LogoutView):
+    """
+    View para deslogar o Diretor ou Professor.
+    """
     next_page = 'core:index'
 
 
