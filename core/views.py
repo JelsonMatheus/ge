@@ -1,6 +1,7 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,FormView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import UsuarioForms
 
 
 class BaseView(LoginRequiredMixin):
@@ -29,3 +30,6 @@ class CoreLogoutView(LogoutView):
 class IndexView(BaseView, TemplateView):
     template_name = 'core/index.html'
 
+class ServidorView(BaseView, FormView):
+    form_class = UsuarioForms
+    template_name = 'core\cadastrar_servidor.html'
