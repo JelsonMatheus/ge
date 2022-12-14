@@ -32,8 +32,8 @@ class IndexView(BaseView, TemplateView):
 
 class ServidorView(BaseView, FormView):
     form_class = UsuarioForms
-    template_name = 'core\cadastrar_servidor.html'
+    template_name = 'core/cadastrar_servidor.html'
 
 class AlunoView(BaseView, FormView):
     form_class = AlunoForms
-    template_name = 'core\cadastrar_aluno.html'
+    template_name = 'core/cadastrar_aluno.html'
