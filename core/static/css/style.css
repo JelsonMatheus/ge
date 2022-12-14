@@ -1,9 +1,8 @@
-
 /********** Colors ***********/
 :root {
     --color-primary: #0777a3;
     --color-primary-dark: #00587a;
-    --color-secondary: #a6705d;
+    --color-secondary: #C4C4C433;
     --color-text: #fff;
     --navbar-height: 3rem;
 }
@@ -11,7 +10,7 @@
 body {
     height: 100vh;
     background: #f5f5dc;
-    font-family: Roboto,sans-serif;
+    font-family: Roboto, sans-serif;
 }
 
 .wrapper {
@@ -24,12 +23,12 @@ body {
 
 .navbar {
     height: var(--navbar-height);
-    background: white  !important;
+    background: white !important;
 }
 
 .navbar-brand {
     height: var(--navbar-height);
-    color: var(--color-text)  !important;
+    color: var(--color-text) !important;
     background: var(--color-primary);
     font-size: 1rem;
 }
@@ -56,10 +55,11 @@ body {
     color: black;
 }
 
-.table > thead {
+.table>thead {
     background: var(--color-secondary);
 }
-.table > tbody tr:nth-child(odd) {
+
+.table>tbody tr:nth-child(odd) {
     background: #e6e2dc !important;
 }
 
@@ -79,16 +79,19 @@ body {
     background: red;
     color: white;
 }
+
 .toast-succes {
     background: rgb(71, 131, 71);
     color: white
 }
+
 .icon {
     font-size: 18px;
 }
 
 select[readonly] {
-    background: #eee; /*Simular campo inativo - Sugestão @GabrielRodrigues*/
+    background: #eee;
+    /*Simular campo inativo - Sugestão @GabrielRodrigues*/
     pointer-events: none;
     touch-action: none;
 }
@@ -103,22 +106,48 @@ select[readonly] {
         font-size: 1.4rem;
     }
 
-    .wrapper > .row {
+    .wrapper>.row {
         height: 100%;
     }
 }
-.h2-servidor-cadastro{
+
+.h2-cadastro {
     color: var(--color-text);
     background: rgba(7, 119, 163, 0.75);
     padding: 30px;
     border-radius: 5px;
 }
-.aviso{
+
+.aviso {
     color: red;
     padding: 10px;
 }
-.form-servidor{
+
+.form-background {
     background: rgba(7, 119, 163, 0.1);
     padding: 35px;
- 
+
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.row-espacamento {
+    margin-bottom: 1rem;
+}
+
+.elemento-asterisco {
+    color: red;
+    padding-left: 0.3em;
+}
+
+.data_nascimento {
+    margin-left: 8.5%;
+}
+
+.btn-salvar {
+    background-color: #5D9D1DCC;
+    color: white;
+
 }
