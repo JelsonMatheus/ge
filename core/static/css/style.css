@@ -11,6 +11,7 @@
 body {
     height: 100vh;
     background: #f5f5dc;
+    font-family: Roboto,sans-serif;
 }
 
 .wrapper {
@@ -105,4 +106,19 @@ select[readonly] {
     .wrapper > .row {
         height: 100%;
     }
+}
+.h2-servidor-cadastro{
+    color: var(--color-text);
+    background: rgba(7, 119, 163, 0.75);
+    padding: 30px;
+    border-radius: 5px;
+}
+.aviso{
+    color: red;
+    padding: 10px;
+}
+.form-servidor{
+    background: rgba(7, 119, 163, 0.1);
+    padding: 35px;
+ 
 }
