@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Usuario(AbstractUser):
@@ -73,4 +73,24 @@ class Aluno(models.Model):
     cpf_do_pai = models.CharField(_('CPF do Pai'), max_length=11)
     responsavel = models.CharField(_('Responsável'), max_length=1, choices=RESPONSAVEL_CHOICES)
 
+class Disciplina(models.Model):
+    nome = models.CharField(_('Nome Disciplina'),max_length=30)
+    codigo = models.IntegerField(_('Codigo'),validators=[MinValueValidator(1),MaxValueValidator(20)])
+
+class Turma(models.Model):
+    TURNO_CHOICES = (
+        ("M", "Matutino"),
+        ("V", "Vespertino"),
+        ("N", "Noturno")
+    )
+    ATENDIMENTO_CHOICES = (
+        ("1", "Ensino Fundamental"),
+        ("2", "Ensino Médio")
+    )
+    nome = models.CharField(_('Nome'),max_length=300)
+    sala = models.IntegerField(_('Sala'),validators=[MinValueValidator(1),MaxValueValidator(100)])
+    turno = models.CharField(max_length=1,choices=TURNO_CHOICES)
+    tipo_atendimento = models.CharField(max_length=1,choices=ATENDIMENTO_CHOICES)
+    dia_semana =  models.CharField(_('Dia da Semana'),max_length=20)
+    disciplina = models.ForeignKey(Disciplina,on_delete=models.PROTECT)
 

@@ -1,0 +1,88 @@
+{% extends 'core/base/base.html' %}
+{% load static widget_tweaks %}
+
+
+
+{% block title %}GE - CADASTRAR SERVIDOR{% endblock %}
+
+{% block content %}
+
+<h2 class="h2-cadastro">CADASTRAR TURMA</h2>
+<p class="aviso">Os campos com * são de preenchimento obrigatório</p>
+
+
+<form class="form-background" action="/cadastrar_turma/" method="post">
+    {% csrf_token %}
+    
+    <div class="row row-espacamento">
+        <div class="col-7">
+        {{ form.nome.errors }}
+        <label for="{{ form.nome.id_for_label }}" class="form-label">Nome<label class="elemento-asterisco">*</label></label>
+        {% render_field form.nome class+="form-control" placeholder="Nome" %}
+
+        </div>
+
+        <div class="col-4">
+            {{ form.sala.errors }}
+            <label for="{{ form.sala.id_for_label }}" class="form-label">Sala <label class="elemento-asterisco">*</label></label>
+            {% render_field form.sala class+="form-control" placeholder="Sala" %}
+        </div>
+    </div>
+
+    <div class="row row-espacamento">
+        <div class="col-4">
+            {{ form.turno.errors }}
+            <label for="{{ form.turno.id_for_label }}" class="form-label">Turno <label class="elemento-asterisco">*</label></label>
+            {% render_field form.turno class+="form-select" placeholder="Turno" %}
+        </div>
+
+        <div class="col-4">
+            {{ form.tipo_atendimento.errors }}
+            <label for="{{ form.tipo_atendimento.id_for_label }}" class="form-label">Tipo Atendimento <label class="elemento-asterisco">*</label></label>
+            {% render_field form.tipo_atendimento class+="form-select" placeholder="Tipo Atendimento" %}
+        </div>
+    </div>
+
+    <div>
+        {{ form.dias_semana.errors }}
+        <label for="{{ form.nome.id_for_label }}" class="form-label">Dias da Semana<label class="elemento-asterisco">*</label></label><br>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Segunda-Feira</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Terça-Feira</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+            <label class="form-check-label" for="inlineCheckbox3">Quarta-Feira</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Quinta-Feira</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Sexta-Feira</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+            <label class="form-check-label" for="inlineCheckbox3">Sábado</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+            <label class="form-check-label" for="inlineCheckbox3">Domingo</label>
+        </div>
+        {% render_field form.dias_semana class+="form-select" %}
+    </div>
+
+    <button class="btn btn-salvar">Salvar</button>
+</form>
+{% endblock %}
