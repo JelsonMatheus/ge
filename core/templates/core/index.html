@@ -4,5 +4,33 @@
 {% block title %}GE - HOME {% endblock %}
 
 {% block content %} 
-<h2>Conteudo</h2>
+<h2 class="h2-cadastro">SEJA BEM VINDO!</h2>
+<div class="container text-center">
+    <div class="row row-cols-3">
+        <div class="botao">
+            <a href="{% url 'core:cadastrar_servidor'%}"><img src="{% static 'imagens/escola.png' %}"></a>
+            <p class="card-text">Escola</p>
+        </div>
+        <div class="botao">
+            <a href="{% url 'core:cadastrar_servidor'%}"><img src="{% static 'imagens/servidores.png' %}"></a>
+            <p class="card-text">Servidores</p>
+        </div>
+        <div class="botao">
+            <a href="{% url 'core:cadastrar_servidor'%}"><img src="{% static 'imagens/alunos.png' %}"></a>
+            <p class="card-text">Alunos</p>
+        </div>
+        <div class="botao">
+            <a href="{% url 'core:cadastrar_servidor'%}"><img src="{% static 'imagens/turma.png' %}"></a>
+            <p class="card-text">Turmas</p>
+        </div>
+        <div class="botao">
+            <a href="{% url 'core:cadastrar_servidor'%}"><img src="{% static 'imagens/matricula.png' %}"></a>
+            <p class="card-text">Matrícula</p>
+        </div>
+        <div class="botao">
+            <a href="{% url 'core:cadastrar_servidor'%}"><img src="{% static 'imagens/relatorio.png' %}"></a>
+            <p class="card-text">Relatório</p>
+        </div>
+    </div>
+</div>
 {% endblock %}
