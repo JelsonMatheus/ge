@@ -15,7 +15,7 @@
       {% render_field form.nome class+="form-control" placeholder="Nome" %}
     </div>
 
-    <div class="col-3 data_nascimento">
+    <div class="col-3 data_nascimento ">
       {{ form.data_nascimento.errors }}
       <label for="{{ form.data_nascimento.id_for_label }}" class="form-label">Data de Nascimento<label class="elemento-asterisco">*</label></label>
       {% render_field form.data_nascimento class+="form-control" placeholder="Data de Nascimento" %}
@@ -101,13 +101,15 @@
 
   </div>
 
-  <div class="col-3">
+  <div class="col-3 row-espacamento">
     {{ form.responsavel.errors }}
     <label for="{{ form.responsavel.id_for_label }}" class="form-label">Responsavel <label class="elemento-asterisco">*</label></label>
     {% render_field form.responsavel class+="form-select" placeholder="Mãe" %}
   </div>
 
-  <button class="btn btn-salvar">Salvar</button>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-salvar me-md-2" type="button"> <i class="fa-solid fa-check"></i> Salvar</button>
+  </div>
 </form>
 
 {% endblock %}

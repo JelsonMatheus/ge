@@ -1,4 +1,4 @@
-/********** Colors ***********/
+********* Colors **********
 :root {
     --color-primary: #0777a3;
     --color-primary-dark: #00587a;
@@ -149,5 +149,7 @@ select[readonly] {
 .btn-salvar {
     background-color: #5D9D1DCC;
     color: white;
+    margin: 30px;
 
 }
+

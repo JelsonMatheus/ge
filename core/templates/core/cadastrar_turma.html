@@ -3,7 +3,7 @@
 
 
 
-{% block title %}GE - CADASTRAR SERVIDOR{% endblock %}
+{% block title %}GE - CADASTRAR TURMA{% endblock %}
 
 {% block content %}
 
@@ -83,6 +83,8 @@
         {% render_field form.dias_semana class+="form-select" %}
     </div>
 
-    <button class="btn btn-salvar">Salvar</button>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-salvar me-md-2" type="button"> <i class="fa-solid fa-check"></i> Salvar</button>
+    </div>
 </form>
 {% endblock %}
