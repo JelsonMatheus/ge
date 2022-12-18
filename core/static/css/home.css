@@ -3,8 +3,7 @@
     --azul-escuro : rgba(0, 88, 122, 1);
     --branco:rgb(255, 255, 255);
     --cinza-transparente: rgba(196, 196, 196, 0.2);
-    --branco-acinzentado:rgb(55, 154, 83) ;
-
+  
 }
 
 *{
@@ -61,6 +60,3 @@ i{
     margin-right: 10px;
 }
 
-.botao {
-    background-color: var(--branco-acinzentado) !important;
-}
