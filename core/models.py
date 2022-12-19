@@ -30,10 +30,10 @@ class Usuario(AbstractUser):
     cpf = models.CharField(_('CPF'), max_length=11)
     tipo = models.CharField(max_length=2, choices=TipoUsuario.choices,
                             default=TipoUsuario.PROFESSOR)
-    nome = models.CharField(_('Nome'),max_length=300)
+    nome = models.CharField(_('Nome'), max_length=300)
     data_nascimento = models.DateField(_('Data de Nascimento'))
-    sexo = models.CharField(max_length=1, choices=SEXO_CHOICES,default="B")
-    telefone = models.CharField(_('Telefone'),max_length=14)
+    sexo = models.CharField(max_length=1, choices=SEXO_CHOICES, default="B")
+    telefone = models.CharField(_('Telefone'), max_length=14)
     email = models.EmailField(_('Email'))
     estado_civil = models.CharField(_('Estado Civil'),max_length=1, choices=ESTADO_CIVIL_CHOICES,default="B")
     cep = models.CharField(_('Cep'),max_length=9 ,null= True,blank=True)

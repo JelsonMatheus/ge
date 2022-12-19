@@ -114,7 +114,7 @@ select[readonly] {
 .h2-cadastro {
     color: var(--color-text);
     background: rgba(7, 119, 163, 0.75);
-    padding: 30px;
+    padding: 1rem;
     border-radius: 5px;
 }
 
