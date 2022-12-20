@@ -27,7 +27,7 @@ class Usuario(AbstractUser):
         DIRETOR = 'D', _('Diretor')
         PROFESSOR = 'P', _('Professor')
 
-    cpf = models.CharField(_('CPF'), max_length=11)
+    cpf = models.CharField(_('CPF'), max_length=14)
     tipo = models.CharField(max_length=2, choices=TipoUsuario.choices,
                             default=TipoUsuario.PROFESSOR)
     nome = models.CharField(_('Nome'), max_length=300)
@@ -67,7 +67,7 @@ class Aluno(models.Model):
         ("M", "Mãe")
     )
 
-    cpf = models.CharField(_('CPF'), max_length=11)
+    cpf = models.CharField(_('CPF'), max_length=14)
     nome = models.CharField(_('Nome'),max_length=300)
     data_nascimento = models.DateField(_('Data de Nascimento'))
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES,default="B")
@@ -78,8 +78,8 @@ class Aluno(models.Model):
     zona = models.CharField(_('Zona'),max_length=1, choices=ZONA_CHOICES,default="B")
     nome_da_mae = models.CharField(_('Nome da Mãe'), max_length=300)
     nome_do_pai = models.CharField(_('Nome do Pai'), max_length=300)
-    cpf_da_mae = models.CharField(_('CPF da Mãe'), max_length=11)
-    cpf_do_pai = models.CharField(_('CPF do Pai'), max_length=11)
+    cpf_da_mae = models.CharField(_('CPF da Mãe'), max_length=14)
+    cpf_do_pai = models.CharField(_('CPF do Pai'), max_length=14)
     responsavel = models.CharField(_('Responsável'), max_length=1, choices=RESPONSAVEL_CHOICES,default="B")
 
 class Disciplina(models.Model):
