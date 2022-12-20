@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root{
     --azul-claro: rgba(7, 119, 163, 1);
     --azul-escuro : rgba(0, 88, 122, 1);
@@ -56,15 +57,17 @@ tr .nav-admin{
 .ge-card {
     width: 12rem;
     background-color: #f8fffa;
-    padding: 1rem 1rem;
+    padding: 2rem 2rem;
 }
 .ge-card img{
-    width: 100%;
+    width: 80%;
 }
 .ge-card p {
     margin-top: 0.75rem;
     padding: 0px;
     margin-bottom: 0px;
     color: black;
+    font-weight:500 ;
+    font-size: 2rem;
 }
 
