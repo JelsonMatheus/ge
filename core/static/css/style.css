@@ -96,6 +96,27 @@ select[readonly] {
     touch-action: none;
 }
 
+.btn-primary {
+    background: var(--color-primary);
+}
+
+thead > tr {
+    background: var(--color-primary);
+    color: white;
+}
+
+.errorlist {
+    color: red;
+    font-size: small;
+}
+
+.checkbox:not(input) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     main>.container {
@@ -114,8 +135,10 @@ select[readonly] {
 .h2-cadastro {
     color: var(--color-text);
     background: rgba(7, 119, 163, 0.75);
-    padding: 1rem;
+    padding: 0.7rem;
     border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .aviso {

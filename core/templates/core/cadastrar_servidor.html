@@ -8,9 +8,9 @@
 <p class="aviso">Os campos com * são de preenchimento obrigatório</p>
 
 
-<form class="form-background" action="/cadastrar_servidor/" method="post">
+<form class="form-background" action="/cadastrar-servidor/" method="post">
     {% csrf_token %}
-    
+    {{form.errors}}
     <div class="row row-espacamento">
         <div class="col-7">
         {{ form.nome.errors }}

@@ -1,14 +1,19 @@
 from django import forms
-from core.models import Usuario, Aluno, Turma
+from core.models import Usuario, Aluno, Turma, Disciplina
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
+
+
+
+DIAS = [(0, 'Segunda-Feira'), (1, 'Terça-Feira'), (2, 'Quarta-Feira'), 
+        (3, 'Quinta-Feira'), (4,'Sexta-Feira'), (5, 'Sábado'), (6, 'Domingo')]
 
 
 class UsuarioForms(UserCreationForm):
     
     class Meta:
         model = Usuario
-        exclude = ('first_name','last_name')
+        exclude = ('first_name','last_name', 'date_joined', 'password')
 
 class AlunoForms(forms.ModelForm):
     class Meta:
@@ -16,6 +21,23 @@ class AlunoForms(forms.ModelForm):
         exclude = ()
 
 class TurmaForms(forms.ModelForm):
+    disciplina = forms.ModelMultipleChoiceField(
+        queryset=Disciplina.objects.all(),
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox'}),
+        required=True
+    )
+    dia_semana = forms.MultipleChoiceField(
+        choices=DIAS,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox'}),
+        required=True
+    )
     class Meta:
         model = Turma
         exclude = ()
+        
+    def clean(self):
+        data = super().clean()
+        dias = data['dia_semana']
+        data['dia_semana'] = ','.join(dias)
+        return data
+    

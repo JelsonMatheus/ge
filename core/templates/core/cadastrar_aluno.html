@@ -5,7 +5,7 @@
 {% block content %}
 <h2 class="h2-cadastro">CADASTRAR ALUNO</h2>
 <p class="aviso">Os campos com <label class="elemento-asterisco">*</label> são de preenchimento obrigatório</p>
-<form  class="form-background" action="/cadastrar_aluno/" method="post">
+<form  class="form-background" action="{% url 'core:cadastrar_aluno' %}" method="post">
   {% csrf_token %}
 
   <div class="row row-espacamento">
@@ -108,7 +108,7 @@
   </div>
 
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button class="btn btn-salvar me-md-2" type="button"> <i class="fa-solid fa-check"></i> Salvar</button>
+    <button class="btn btn-salvar me-md-2"> <i class="fa-solid fa-check"></i> Salvar</button>
   </div>
 </form>
 

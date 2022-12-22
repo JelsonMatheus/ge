@@ -1,9 +1,9 @@
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UsuarioForms, AlunoForms, TurmaForms
-from core.models import Usuario
+from core.models import Usuario, Aluno, Turma
 
 
 class BaseView(LoginRequiredMixin):
@@ -37,16 +37,38 @@ class ServidorList(BaseView, ListView):
     model = Usuario
     template_name = 'core/servidores.html'
 
+
+class AlunoList(BaseView, ListView):
+    model = Aluno
+    template_name = 'core/alunos.html'
+
+
+class TurmaList(BaseView, ListView):
+    model = Turma
+    template_name = 'core/turmas.html'
+
+
 class ServidorView(BaseView, CreateView):
     form_class = UsuarioForms
     template_name = 'core/cadastrar_servidor.html'
-    success_url = 'core:cadastrar_servidor'
+    success_url = '/servidores/'
 
-class AlunoView(BaseView, FormView):
+
+class AlunoView(BaseView, CreateView):
     form_class = AlunoForms
     template_name = 'core/cadastrar_aluno.html'
+    success_url = '/alunos/'
 
 
-class TurmaView(BaseView, FormView):
+class TurmaView(BaseView, CreateView):
     form_class = TurmaForms
     template_name = 'core/cadastrar_turma.html'
+    success_url = '/turmas/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dias = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 
+                'Quinta-Feira', 'Sexta-Feira', 'Sábado', 'Domingo']
+        context['dias'] = dias
+        return context
+        

@@ -15,4 +15,5 @@ class Command(BaseCommand):
         management.call_command('makemigrations')
         management.call_command('migrate')
         management.call_command('loaddata', 'fixtures/usuarios.json')
+        management.call_command('loaddata', 'fixtures/disciplinas.json')
         self.stdout.write(self.style.SUCCESS('Successfully reset databas.'))

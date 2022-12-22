@@ -10,14 +10,14 @@
 {% endblock %}
 
 {% block content %} 
-<h2 class="h2-cadastro p-4">SEJA BEM VINDO!</h2>
+<h2 class="h2-cadastro p-3">SEJA BEM VINDO!</h2>
 <div class="container text-center">
     <div class="w-100 mt-4 row row-cols-3 justify-content-center gy-3 gx-5">
         <div class="col-auto">
             <div class="position-relative border ge-card">
                 <img src="{% static 'imagens/escola.svg' %}">
                 <p>Escola</p>
-                <a class="stretched-link" href="{% url 'core:cadastrar_servidor'%}"></a>
+                <a class="stretched-link" href="{% url 'core:lista_servidores'%}"></a>
             </div>
         </div>
         <div class="col-auto">
@@ -31,7 +31,7 @@
             <div class="position-relative border ge-card">
                 <img src="{% static 'imagens/alunos.png' %}">
                 <p>Alunos</p>
-                <a class="stretched-link" href="{% url 'core:cadastrar_servidor'%}"></a>
+                <a class="stretched-link" href="{% url 'core:lista_alunos'%}"></a>
             </div>
         </div>
 
@@ -41,7 +41,7 @@
             <div class="position-relative border ge-card">
                 <img src="{% static 'imagens/turma.png' %}">
                 <p>Turma</p>
-                <a class="stretched-link" href="{% url 'core:cadastrar_servidor'%}"></a>
+                <a class="stretched-link" href="{% url 'core:lista_turmas'%}"></a>
             </div>
         </div>
         <div class="col-auto">

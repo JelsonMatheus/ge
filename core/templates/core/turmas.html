@@ -4,11 +4,11 @@
 {% block title %}GE - CADASTRAR SERVIDOR{% endblock %}
 
 {% block content %}
-<h2 class="h2-cadastro">SERVIDORES</h2>
+<h2 class="h2-cadastro">Turmas</h2>
 
 <div class="p-1 p-sm-5">
     <div class="my-3 d-flex">
-        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_servidor' %}" role="button">
+        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_turma' %}" role="button">
             <i class="bi bi-plus-circle"></i>
             Adicionar
         </a>
@@ -19,18 +19,18 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nome</th>
-                    <th scope="col">CPF</th>
-                    <th scope="col">EMAIL</th>
+                    <th scope="col">SALA</th>
+                    <th scope="col">TURNO</th>
                     <th scope="col">AÇÕES</th>
                 </tr>
             </thead>
             <tbody>
-            {% for user in object_list %}
+            {% for aluno in object_list %}
                 <tr>
                     <td>{{ forloop.counter }} </td>
-                    <td>{{user.nome}}</td>
-                    <td>{{user.cpf}}</td>
-                    <td>{{user.email}}</td>
+                    <td>{{aluno.nome}}</td>
+                    <td>{{aluno.sala}}</td>
+                    <td>{{aluno.turno}}</td>
                     <td></td>
                 </tr>
             {% empty %}

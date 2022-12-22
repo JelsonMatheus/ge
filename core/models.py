@@ -28,7 +28,7 @@ class Usuario(AbstractUser):
         PROFESSOR = 'P', _('Professor')
 
     cpf = models.CharField(_('CPF'), max_length=14)
-    tipo = models.CharField(max_length=2, choices=TipoUsuario.choices,
+    tipo = models.CharField(max_length=2, choices=TipoUsuario.choices, blank=True,
                             default=TipoUsuario.PROFESSOR)
     nome = models.CharField(_('Nome'), max_length=300)
     data_nascimento = models.DateField(_('Data de Nascimento'))
@@ -86,6 +86,10 @@ class Disciplina(models.Model):
     nome = models.CharField(_('Nome Disciplina'),max_length=30)
     codigo = models.IntegerField(_('Codigo'),validators=[MinValueValidator(1),MaxValueValidator(20)])
 
+    def __str__(self):
+        return self.nome
+
+        
 class Turma(models.Model):
     TURNO_CHOICES = (
         ("B", ""),
@@ -99,9 +103,9 @@ class Turma(models.Model):
         ("2", "Ensino Médio")
     )
     nome = models.CharField(_('Nome'),max_length=300)
-    sala = models.IntegerField(_('Sala'),validators=[MinValueValidator(1),MaxValueValidator(100)])
+    sala = models.IntegerField(_('Sala'), validators=[MinValueValidator(1),MaxValueValidator(100)])
     turno = models.CharField(max_length=1,choices=TURNO_CHOICES,default="B")
     tipo_atendimento = models.CharField(max_length=1,choices=ATENDIMENTO_CHOICES,default="B")
-    dia_semana =  models.CharField(_('Dia da Semana'),max_length=20)
-    disciplina = models.ForeignKey(Disciplina,on_delete=models.PROTECT)
+    dia_semana =  models.CharField(_('Dia da Semana'), max_length=20)
+    disciplina = models.ManyToManyField(Disciplina, related_name='disciplinas')
 
