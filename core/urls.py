@@ -13,4 +13,6 @@ urlpatterns = [
     path('cadastrar-aluno/',views.AlunoView.as_view(), name='cadastrar_aluno'),
     path('turmas/',views.TurmaList.as_view(), name='lista_turmas'),
     path('cadastrar-turma/',views.TurmaView.as_view(), name='cadastrar_turma'),
+    path('servidores/<int:pk>/update/', views.ServidorView.as_view(), name='servidor_update'),
+    path('delete/<int:id>', views.servidor_delete , name='servidor_delete'),
 ]

@@ -4,7 +4,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UsuarioForms, AlunoForms, TurmaForms
 from core.models import Usuario, Aluno, Turma
-
+from django.shortcuts import redirect
 
 class BaseView(LoginRequiredMixin):
     """
@@ -53,7 +53,10 @@ class ServidorView(BaseView, CreateView):
     template_name = 'core/cadastrar_servidor.html'
     success_url = '/servidores/'
 
-
+def servidor_delete(request,id):
+    servidor = Usuario.objects.get(id=id)
+    servidor.delete()
+    return redirect(ServidorView)
 class AlunoView(BaseView, CreateView):
     form_class = AlunoForms
     template_name = 'core/cadastrar_aluno.html'
