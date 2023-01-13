@@ -1,14 +1,14 @@
 {% extends 'core/base/base.html' %}
 {% load static widget_tweaks %}
 
-{% block title %}GE - CADASTRAR SERVIDOR{% endblock %}
+{% block title %}GE - Editar SERVIDOR{% endblock %}
 
 {% block content %} 
-<h2 class="h2-cadastro">CADASTRAR SERVIDOR</h2>
+<h2 class="h2-cadastro">Editar SERVIDOR</h2>
 <p class="aviso">Os campos com * são de preenchimento obrigatório</p>
 
 
-<form class="form-background" action="/cadastrar-servidor/" method="post">
+<form class="form-background" action="{% url 'core:servidor_update' servidor.id %}" method="post">
     {% csrf_token %}
     {{form.errors}}
     <div class="row row-espacamento">
@@ -87,20 +87,6 @@
         {{ form.password2.errors }}
     </div>
     <div class="row">
-        <div class="col-3 row-espacamento">
-            <label for="{{ form.username.id_for_label }}" class="form-label">Login <label class="elemento-asterisco">*</label></label>
-            {% render_field form.username class+="form-control" placeholder="Login" %}
-        </div>
-
-        <div class="col-3 row-espacamento">
-            <label for="{{ form.password1.id_for_label }}" class="form-label">Senha <label class="elemento-asterisco">*</label></label>
-            {% render_field form.password1 class+="form-control" placeholder="Senha" %}
-        </div>
-
-        <div class="col-3 row-espacamento">
-            <label for="{{ form.password2.id_for_label }}" class="form-label">Confirmar Senha <label class="elemento-asterisco">*</label></label>
-            {% render_field form.password2 class+="form-control" placeholder="Confirmar Senha" %}
-        </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button class="btn btn-salvar me-md-2"> 
@@ -110,6 +96,5 @@
         </div>
     </div>
 </form>
-
 
 {% endblock %}

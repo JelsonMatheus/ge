@@ -1,6 +1,6 @@
 from django import forms
 from core.models import Usuario, Aluno, Turma, Disciplina
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
 
 
@@ -14,6 +14,12 @@ class UsuarioForms(UserCreationForm):
     class Meta:
         model = Usuario
         exclude = ('first_name','last_name', 'date_joined', 'password')
+
+class UsuarioFormsEdit(UserChangeForm):
+    
+    class Meta:
+        model = Usuario
+        exclude = ('first_name','last_name', 'date_joined','password', 'password1','password2','username')
 
 class AlunoForms(forms.ModelForm):
     class Meta:

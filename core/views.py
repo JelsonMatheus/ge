@@ -1,10 +1,10 @@
 from django.views.generic import TemplateView, ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UsuarioForms, AlunoForms, TurmaForms
+from .forms import UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit
 from core.models import Usuario, Aluno, Turma
-from django.shortcuts import redirect
+from django.shortcuts import redirect,render, get_object_or_404
 
 class BaseView(LoginRequiredMixin):
     """
@@ -53,10 +53,6 @@ class ServidorView(BaseView, CreateView):
     template_name = 'core/cadastrar_servidor.html'
     success_url = '/servidores/'
 
-def servidor_delete(request,id):
-    servidor = Usuario.objects.get(id=id)
-    servidor.delete()
-    return redirect(ServidorView)
 class AlunoView(BaseView, CreateView):
     form_class = AlunoForms
     template_name = 'core/cadastrar_aluno.html'
@@ -74,4 +70,25 @@ class TurmaView(BaseView, CreateView):
                 'Quinta-Feira', 'Sexta-Feira', 'Sábado', 'Domingo']
         context['dias'] = dias
         return context
+
+
+def servidor_delete(request,id):
+    servidor = Usuario.objects.get(id=id)
+    servidor.delete()
+    return redirect('/servidores/')
+
+#################UPDATE#################
+
+def post_update(request, pk):
+    servidor = get_object_or_404(Usuario, pk=pk)
+    form = UsuarioFormsEdit(instance=servidor)
+    if(request.method == 'POST'):
+        form = UsuarioFormsEdit(request.POST, instance=servidor)
         
+        if(form.is_valid()):
+            form.save(commit=True)
+            return redirect('/servidores/')
+        else:
+            return render(request, 'core/editar_servidor.html', {'form': form, 'servidor' : servidor})
+    elif(request.method == 'GET'):
+        return render(request, 'core/editar_servidor.html', {'form': form, 'servidor' : servidor})

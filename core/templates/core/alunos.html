@@ -31,7 +31,22 @@
                     <td>{{aluno.nome}}</td>
                     <td>{{aluno.cpf}}</td>
                     <td>{{aluno.data_nascimento}}</td>
-                    <td></td>
+                    <td>
+                        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_servidor' %}" role="button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </a>
+
+                        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_servidor' %}" role="button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Editar
+                        </a>
+
+                        <a class="btn btn-danger me-auto" href="{% url 'core:servidor_delete' user.id%}" role="button">
+                            <i class="fa-solid fa-trash"></i>
+                            Apagar
+                         </a>
+                        </i>
+                    </td>
                 </tr>
             {% empty %}
                 <tr>
