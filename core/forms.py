@@ -26,6 +26,10 @@ class AlunoForms(forms.ModelForm):
         model = Aluno
         exclude = ()
 
+class AlunoFormsEdit(UserChangeForm):
+    class Meta:
+        model = Aluno
+        exclude = ()
 class TurmaForms(forms.ModelForm):
     disciplina = forms.ModelMultipleChoiceField(
         queryset=Disciplina.objects.all(),

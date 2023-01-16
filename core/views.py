@@ -2,7 +2,7 @@ from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit
+from .forms import UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, AlunoFormsEdit
 from core.models import Usuario, Aluno, Turma
 from django.shortcuts import redirect,render, get_object_or_404
 
@@ -77,6 +77,11 @@ def servidor_delete(request,id):
     servidor.delete()
     return redirect('/servidores/')
 
+def aluno_delete(request,id):
+    aluno = Aluno.objects.get(id=id)
+    aluno.delete()
+    return redirect('/alunos/')
+
 #################UPDATE#################
 
 def post_update(request, pk):
@@ -92,3 +97,17 @@ def post_update(request, pk):
             return render(request, 'core/editar_servidor.html', {'form': form, 'servidor' : servidor})
     elif(request.method == 'GET'):
         return render(request, 'core/editar_servidor.html', {'form': form, 'servidor' : servidor})
+
+def post_update_aluno(request, pk):
+    aluno = get_object_or_404(Aluno, pk=pk)
+    form = AlunoFormsEdit(instance=aluno)
+    if(request.method == 'POST'):
+        form = AlunoFormsEdit(request.POST, instance=aluno)
+        
+        if(form.is_valid()):
+            form.save(commit=True)
+            return redirect('/alunos/')
+        else:
+            return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
+    elif(request.method == 'GET'):
+        return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
