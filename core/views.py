@@ -41,6 +41,7 @@ class ServidorList(BaseView, ListView):
 class AlunoList(BaseView, ListView):
     model = Aluno
     template_name = 'core/alunos.html'
+    paginate_by = 4
 
 
 class TurmaList(BaseView, ListView):
@@ -57,6 +58,18 @@ class AlunoView(BaseView, CreateView):
     form_class = AlunoForms
     template_name = 'core/cadastrar_aluno.html'
     success_url = '/alunos/'
+    
+    def get_queryset(self):
+
+        txt_nome = self.request.GET.get('nome')
+
+        if txt_nome:
+            aluno = Aluno.objects.filter(nome__icontains=txt_nome)
+        else:
+            Aluno = Aluno.objects.all()
+
+        return aluno
+
 
 
 class TurmaView(BaseView, CreateView):
