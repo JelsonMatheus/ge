@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView , DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,6 +37,11 @@ class ServidorList(BaseView, ListView):
     model = Usuario
     template_name = 'core/servidores.html'
 
+class ServidorVisualizar(BaseView, DetailView):
+    model = Usuario
+    template_name = 'core/visualizar_servidor.html'
+
+
 
 class AlunoList(BaseView, ListView):
     model = Aluno
@@ -53,6 +58,8 @@ class ServidorView(BaseView, CreateView):
     form_class = UsuarioForms
     template_name = 'core/cadastrar_servidor.html'
     success_url = '/servidores/'
+
+
 
 class AlunoView(BaseView, CreateView):
     form_class = AlunoForms
@@ -94,6 +101,13 @@ def aluno_delete(request,id):
     aluno = Aluno.objects.get(id=id)
     aluno.delete()
     return redirect('/alunos/')
+    
+def visualizar_servidor(request, id, ListView):
+    servidor = get_object_or_404(Usuario, id=id)
+    model = UsuarioForms
+    TemplateView = ServidorView
+    return render(request, 'core/visualizar_servidor.html', {'servidor' : servidor})
+    
 
 #################UPDATE#################
 

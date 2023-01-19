@@ -9,6 +9,7 @@ urlpatterns = [
     path('auth/logout/', views.CoreLogoutView.as_view(), name='logout'),
     path('servidores/',views.ServidorList.as_view(), name='lista_servidores'),
     path('cadastrar-servidor/',views.ServidorView.as_view(), name='cadastrar_servidor'),
+    path('visualizar/servidores/<int:pk>',views.ServidorVisualizar.as_view(), name='visualizar_servidor'),
     path('alunos/', views.AlunoList.as_view(), name='lista_alunos'),
     path('cadastrar-aluno/',views.AlunoView.as_view(), name='cadastrar_aluno'),
     path('turmas/',views.TurmaList.as_view(), name='lista_turmas'),
@@ -17,4 +18,5 @@ urlpatterns = [
     path('atualizar/alunos/<int:pk>/', views.post_update_aluno, name='aluno_update'),
     path('deletar/servidores/<int:id>/', views.servidor_delete , name='servidor_delete'),
     path('deletar/alunos/<int:id>/', views.aluno_delete , name='aluno_delete'),
+
 ]

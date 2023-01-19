@@ -32,18 +32,16 @@
                     <td>{{user.cpf}}</td>
                     <td>{{user.email}}</td>
                     <td>
-                        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_servidor' %}" role="button">
+                        <a class="btn btn-primary me-auto" href="{% url 'core:visualizar_servidor' user.id %}" role="button">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
 
                         <a class="btn btn-primary me-auto" href="{% url 'core:servidor_update' user.id %}" role="button">
                             <i class="fa-solid fa-pen-to-square"></i>
-                            Editar
                         </a>
 
-                        <a class="btn btn-danger me-auto" href="{% url 'core:servidor_delete' user.id%}" role="button">
+                        <a class="btn btn-danger me-auto" href="{% url 'core:servidor_delete' user.id %}" role="button">
                             <i class="fa-solid fa-trash"></i>
-                            Apagar
                          </a>
                         </i>
                     </td>
