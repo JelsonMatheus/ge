@@ -36,6 +36,7 @@ class IndexView(BaseView, TemplateView):
 class ServidorList(BaseView, ListView):
     model = Usuario
     template_name = 'core/servidores.html'
+    paginate_by =4
 
 class ServidorVisualizar(BaseView, DetailView):
     model = Usuario

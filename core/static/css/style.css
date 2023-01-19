@@ -2,6 +2,7 @@
 :root {
     --color-primary: #0777a3;
     --color-primary-dark: #00587a;
+    --color-secundary-dark : #0777A380;
     --color-secondary: #C4C4C433;
     --color-text: #fff;
     --navbar-height: 3rem;
@@ -174,4 +175,17 @@ thead > tr {
     color: white;
     margin: 30px;
 
+}
+.campo-pesquisar{
+    width: 35rem;
+    background-color: var(--color-secundary-dark);
+    border-radius:15px ;
+    display: flex;
+    gap:40px;
+
+}
+#input-pesquisar{
+    border-radius: 8px;
+    width: 30rem;
+    padding: 10px;
 }
