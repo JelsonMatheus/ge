@@ -19,5 +19,6 @@ urlpatterns = [
     path('deletar/servidores/<int:id>/', views.servidor_delete , name='servidor_delete'),
     path('deletar/alunos/<int:id>/', views.aluno_delete , name='aluno_delete'),
     path('servidores/servidores.pdf/', views.servidores_pdf , name='servidores_pdf'),
+    path('alunos/alunos.pdf/', views.alunos_pdf , name='alunos_pdf'),
 
 ]

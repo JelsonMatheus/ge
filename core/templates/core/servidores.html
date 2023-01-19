@@ -6,8 +6,18 @@
 {% block content %}
 <h2 class="h2-cadastro">SERVIDORES</h2>
 
-<div class="p-1 p-sm-5">
-    <div class="col-3 d-flex">
+<div class="p-1 p-sm-4">
+    <form action="?"  class=" p-4 campo-pesquisar" method="GET">
+
+        <input type="text" name="nome"  id="input-pesquisar" value="{{ request.Get.nome }}" class="p-1 border" autocomplete="off" placeholder="Nome">
+
+        <button type="submit" class="btn btn-primary ">Buscar</button>
+
+        <a href="{% url 'core:lista_servidores' %}" class="btn btn-light">Limpar</a>
+
+    </form>
+
+    <div class="col-4 p-3 d-flex">
         <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_servidor' %}" role="button">
             <i class="bi bi-plus-circle"></i>
             Adicionar

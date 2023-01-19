@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView , DetailView
+from django.views.generic import TemplateView, ListView , DetailView 
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -47,6 +47,16 @@ class ServidorList(BaseView, ListView):
     template_name = 'core/servidores.html'
     paginate_by =4
 
+    print("AQUIIIIII")
+
+    def get_queryset(self):
+        nome_input = self.request.GET.get('nome')
+        if nome_input:
+            servidor = Usuario.objects.filter(nome__icontains=nome_input)
+        else:
+            servidor = Usuario.objects.all()
+        return servidor
+
 class ServidorVisualizar(BaseView, DetailView):
     model = Usuario
     template_name = 'core/visualizar_servidor.html'
@@ -58,6 +68,14 @@ class AlunoList(BaseView, ListView):
     template_name = 'core/alunos.html'
     paginate_by = 4
 
+    def get_queryset(self):
+        nome_input = self.request.GET.get('nome')
+        if nome_input:
+            aluno = Aluno.objects.filter(nome__icontains=nome_input)
+        else:
+            aluno = Aluno.objects.all()
+        return aluno
+
 
 class TurmaList(BaseView, ListView):
     model = Turma
@@ -68,7 +86,7 @@ class ServidorView(BaseView, CreateView):
     form_class = UsuarioForms
     template_name = 'core/cadastrar_servidor.html'
     success_url = '/servidores/'
-
+    
 
 
 class AlunoView(BaseView, CreateView):
@@ -76,17 +94,6 @@ class AlunoView(BaseView, CreateView):
     template_name = 'core/cadastrar_aluno.html'
     success_url = '/alunos/'
     
-    def get_queryset(self):
-
-        txt_nome = self.request.GET.get('nome')
-
-        if txt_nome:
-            aluno = Aluno.objects.filter(nome__icontains=txt_nome)
-        else:
-            Aluno = Aluno.objects.all()
-
-        return aluno
-
 
 
 class TurmaView(BaseView, CreateView):
@@ -169,10 +176,9 @@ def servidores_pdf(request):
 	lines = []
 
 	for servidor in servidores:
-		lines.append(servidor.id)
+        
 		lines.append(servidor.cpf)
 		lines.append(servidor.nome)
-		# lines.append(servidor.data_nascimento) causa um erro no pdf
 		lines.append(servidor.sexo)
 		lines.append(servidor.telefone)
 		lines.append(servidor.email)
@@ -195,3 +201,50 @@ def servidores_pdf(request):
 
 	# Return something
 	return FileResponse(buf, as_attachment=True, filename='servidores.pdf')
+
+
+def alunos_pdf(request):
+	
+	buf = io.BytesIO()
+	
+	c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+	# Create a text object
+	textob = c.beginText()
+	textob.setTextOrigin(inch, inch)
+	textob.setFont("Helvetica", 14)
+
+	
+	
+	alunos = Aluno.objects.all()
+
+	
+	lines = []
+
+	for aluno in alunos:
+        
+		lines.append(aluno.cpf)
+		lines.append(aluno.nome)
+		lines.append(aluno.sexo)
+		lines.append(aluno.nome_da_mae)
+		lines.append(aluno.nome_do_pai)
+		lines.append(aluno.responsavel)
+		lines.append(aluno.email)
+		lines.append(aluno.estado_civil)
+		lines.append(aluno.cep)
+		lines.append(aluno.endereco)
+		lines.append(aluno.zona)
+
+		lines.append(" -------------------------------------------")
+
+	# Loop
+	for line in lines:
+		textob.textLine(line)
+
+	# Finish Up
+	c.drawText(textob)
+	c.showPage()
+	c.save()
+	buf.seek(0)
+
+	# Return something
+	return FileResponse(buf, as_attachment=True, filename='alunos.pdf')

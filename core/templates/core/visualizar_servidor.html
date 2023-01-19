@@ -23,10 +23,10 @@
                     <label class="form-label">Sexo : </label>
                     {% if object.sexo == "F"%}
                     <td class="campo-visualizar">Feminino</td>
-                    {% elif object.estado_civil == "B" or object.estado_civil == "N"  %}
+                    {% elif object.estado_civil == "B" or object.estado_civil == "N" or object.estado_civil == ""  %}
                         <td class="campo-visualizar">Não informado</td>
-                    {%elif object.sexo == "Masculino" %}
-                        <td class="campo-visualizar">Solteiro(a)</td>
+                    {%elif object.sexo == "M" %}
+                        <td class="campo-visualizar">Masculino</td>
                     {%endif%}
                         
                 </div>
