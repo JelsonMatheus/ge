@@ -7,12 +7,17 @@
 <h2 class="h2-cadastro">SERVIDORES</h2>
 
 <div class="p-1 p-sm-5">
-    <div class="my-3 d-flex">
+    <div class="col-3 d-flex">
         <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_servidor' %}" role="button">
             <i class="bi bi-plus-circle"></i>
             Adicionar
         </a>
+        <a class="btn btn-primary me-auto" href="{% url 'core:servidores_pdf' %}" role="button">
+            <i class="bi bi-plus-circle"></i>
+            Exportar
+        </a>
     </div>
+    
     <div class="mt-1 table-responsive">
         <table class="table">
             <thead>

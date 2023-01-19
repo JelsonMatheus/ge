@@ -6,6 +6,15 @@ from .forms import UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, Aluno
 from core.models import Usuario, Aluno, Turma
 from django.shortcuts import redirect,render, get_object_or_404
 
+# Import PDF Stuff
+from django.http import FileResponse
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+
+
+
 class BaseView(LoginRequiredMixin):
     """
     Classe base para as demais views que requer um usuário logado.
@@ -139,3 +148,50 @@ def post_update_aluno(request, pk):
             return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
     elif(request.method == 'GET'):
         return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
+
+
+###################### Gerando pdf ##########
+def servidores_pdf(request):
+	
+	buf = io.BytesIO()
+	
+	c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
+	# Create a text object
+	textob = c.beginText()
+	textob.setTextOrigin(inch, inch)
+	textob.setFont("Helvetica", 14)
+
+	
+	
+	servidores = Usuario.objects.all()
+
+	
+	lines = []
+
+	for servidor in servidores:
+		lines.append(servidor.id)
+		lines.append(servidor.cpf)
+		lines.append(servidor.nome)
+		# lines.append(servidor.data_nascimento) causa um erro no pdf
+		lines.append(servidor.sexo)
+		lines.append(servidor.telefone)
+		lines.append(servidor.email)
+		lines.append(servidor.estado_civil)
+		lines.append(servidor.cep)
+		lines.append(servidor.endereco)
+		lines.append(servidor.zona)
+
+		lines.append(" -------------------------------------------")
+
+	# Loop
+	for line in lines:
+		textob.textLine(line)
+
+	# Finish Up
+	c.drawText(textob)
+	c.showPage()
+	c.save()
+	buf.seek(0)
+
+	# Return something
+	return FileResponse(buf, as_attachment=True, filename='servidores.pdf')
