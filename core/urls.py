@@ -10,6 +10,7 @@ urlpatterns = [
     path('servidores/',views.ServidorList.as_view(), name='lista_servidores'),
     path('cadastrar-servidor/',views.ServidorView.as_view(), name='cadastrar_servidor'),
     path('visualizar/servidores/<int:pk>',views.ServidorVisualizar.as_view(), name='visualizar_servidor'),
+    path('visualizar/alunos/<int:pk>',views.AlunoVisualizar.as_view(), name='visualizar_aluno'),
     path('alunos/', views.AlunoList.as_view(), name='lista_alunos'),
     path('cadastrar-aluno/',views.AlunoView.as_view(), name='cadastrar_aluno'),
     path('turmas/',views.TurmaList.as_view(), name='lista_turmas'),

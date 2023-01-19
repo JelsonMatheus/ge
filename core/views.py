@@ -47,8 +47,6 @@ class ServidorList(BaseView, ListView):
     template_name = 'core/servidores.html'
     paginate_by =4
 
-    print("AQUIIIIII")
-
     def get_queryset(self):
         nome_input = self.request.GET.get('nome')
         if nome_input:
@@ -75,6 +73,10 @@ class AlunoList(BaseView, ListView):
         else:
             aluno = Aluno.objects.all()
         return aluno
+
+class AlunoVisualizar(BaseView, DetailView):
+    model = Aluno
+    template_name = 'core/visualizar_aluno.html'
 
 
 class TurmaList(BaseView, ListView):

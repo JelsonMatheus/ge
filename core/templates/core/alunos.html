@@ -50,18 +50,16 @@
                     <td>{{aluno.cpf}}</td>
                     <td>{{aluno.data_nascimento}}</td>
                     <td>
-                        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_aluno' %}" role="button">
+                        <a class="btn btn-primary me-auto" href="{% url 'core:visualizar_aluno' aluno.id%}" role="button">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
 
                         <a class="btn btn-primary me-auto" href="{% url 'core:aluno_update' aluno.id%}" role="button">
                             <i class="fa-solid fa-pen-to-square"></i>
-                            Editar
                         </a>
 
                         <a class="btn btn-danger me-auto" href="{% url 'core:aluno_delete' aluno.id%}" role="button">
                             <i class="fa-solid fa-trash"></i>
-                            Apagar
                          </a>
                         </i>
                     </td>
