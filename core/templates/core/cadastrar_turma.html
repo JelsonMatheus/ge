@@ -11,7 +11,11 @@
 <p class="aviso">Os campos com * são de preenchimento obrigatório</p>
 
 
-<form class="form-background" action="/cadastrar-turma/" method="post">
+{% if forms.id != 0 %}
+<form class="form-background" action="{% url 'core:editar_turma' turma.id %}" method="post">
+{% else%}
+<form class="form-background" action="{% url 'core:cadastrar_turma' %}" method="post">
+{% endif %}
     {% csrf_token %}
     {{forms.errors}}
     

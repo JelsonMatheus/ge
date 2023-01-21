@@ -15,21 +15,26 @@ class UsuarioForms(UserCreationForm):
         model = Usuario
         exclude = ('first_name','last_name', 'date_joined', 'password')
 
+
 class UsuarioFormsEdit(UserChangeForm):
     
     class Meta:
         model = Usuario
         exclude = ('first_name','last_name', 'date_joined','password', 'password1','password2','username')
 
+
 class AlunoForms(forms.ModelForm):
     class Meta:
         model = Aluno
         exclude = ()
 
+
 class AlunoFormsEdit(UserChangeForm):
     class Meta:
         model = Aluno
         exclude = ()
+
+
 class TurmaForms(forms.ModelForm):
     disciplina = forms.ModelMultipleChoiceField(
         queryset=Disciplina.objects.all(),
@@ -41,6 +46,7 @@ class TurmaForms(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox'}),
         required=True
     )
+
     class Meta:
         model = Turma
         exclude = ()

@@ -25,13 +25,26 @@
                 </tr>
             </thead>
             <tbody>
-            {% for aluno in object_list %}
+            {% for turma in object_list %}
                 <tr>
                     <td>{{ forloop.counter }} </td>
-                    <td>{{aluno.nome}}</td>
-                    <td>{{aluno.sala}}</td>
-                    <td>{{aluno.turno}}</td>
-                    <td></td>
+                    <td>{{turma.nome}}</td>
+                    <td>{{turma.sala}}</td>
+                    <td>{{turma.turno}}</td>
+                    <td>
+                        <a class="btn btn-primary me-auto" href="{% url 'core:visualizar_turma' turma.id %}" role="button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </a>
+
+                        <a class="btn btn-primary me-auto" href="{% url 'core:editar_turma' turma.id %}" role="button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+
+                        <a class="btn btn-danger me-auto" href="{% url 'core:turma_delete' turma.id %}" role="button">
+                            <i class="fa-solid fa-trash"></i>
+                         </a>
+                        </i>
+                    </td>
                 </tr>
             {% empty %}
                 <tr>

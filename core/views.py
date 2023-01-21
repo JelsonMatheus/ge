@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, AlunoFormsEdit
 from core.models import Usuario, Aluno, Turma
 from django.shortcuts import redirect,render, get_object_or_404
+from django.urls import reverse
 
 # Import PDF Stuff
 from django.http import FileResponse
@@ -111,15 +112,39 @@ class TurmaView(BaseView, CreateView):
         return context
 
 
+class TurmaVisualizar(BaseView, DetailView):
+    model = Turma
+    template_name = 'core/visualizar_turma.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dia_selecionado = []
+        dias = self.object.dia_semana.split(",")
+        dia = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 
+                'Quinta-Feira', 'Sexta-Feira', 'Sábado', 'Domingo']
+        for d in dias:
+            dia_selecionado.append(dia[int(d)])
+
+        context['dia_selecionado'] = dia_selecionado
+        return context
+
+
+
 def servidor_delete(request,id):
-    servidor = Usuario.objects.get(id=id)
+    servidor = get_object_or_404(Usuario, pk=id)
     servidor.delete()
     return redirect('/servidores/')
 
 def aluno_delete(request,id):
-    aluno = Aluno.objects.get(id=id)
+    aluno = get_object_or_404(Aluno, pk=id)
     aluno.delete()
     return redirect('/alunos/')
+
+def turma_delete(request,id):
+    turma = get_object_or_404(Turma, pk=id)
+    turma.delete()
+    return redirect('/turmas/')
+
     
 def visualizar_servidor(request, id, ListView):
     servidor = get_object_or_404(Usuario, id=id)
@@ -144,6 +169,7 @@ def post_update(request, pk):
     elif(request.method == 'GET'):
         return render(request, 'core/editar_servidor.html', {'form': form, 'servidor' : servidor})
 
+
 def post_update_aluno(request, pk):
     aluno = get_object_or_404(Aluno, pk=pk)
     form = AlunoFormsEdit(instance=aluno)
@@ -158,6 +184,20 @@ def post_update_aluno(request, pk):
     elif(request.method == 'GET'):
         return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
 
+def post_update_turma(request, pk):
+    turma = get_object_or_404(Turma, pk=pk)
+    form = TurmaForms(instance=turma)
+
+    if(request.method == 'POST'):
+        form = TurmaForms(request.POST, instance=turma)
+        
+        if(form.is_valid()):
+            form.save(commit=True)
+            return redirect(reverse("core:lista_turmas"))
+        else:
+            return render(request, 'core/cadastrar_turma.html', {'form': form, 'turma' : turma})
+    elif(request.method == 'GET'):
+        return render(request, 'core/cadastrar_turma.html', {'form': form, 'turma' : turma})
 
 ###################### Gerando pdf ##########
 def servidores_pdf(request):
