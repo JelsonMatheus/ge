@@ -217,14 +217,31 @@ def servidores_pdf(request):
             Paragraph(servidor.endereco)
         ])
     return report.report_servidor(servidores)
+
+def alunos_pdf(request):
+    alunos = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Mãe', 'Pai', 'Responsável']]
+    for aluno in Aluno.objects.all():
+        alunos.append([
+            Paragraph(aluno.nome),
+            Paragraph(str(aluno.data_nascimento)),
+            Paragraph(aluno.cpf),
+            Paragraph(aluno.get_sexo_display()),
+            Paragraph(aluno.nome_da_mae),
+            Paragraph(aluno.nome_do_pai),
+            Paragraph(aluno.get_responsavel_display())
+        ])
+    return report.report_aluno(alunos)
 	
 
 def turmas_pdf(request):
-    turmas = [['Nome', 'Turno']]
+    turmas = [['Nome', 'Turno', 'Modalidade', 'Sala']]
     for turma in Turma.objects.all():
         turmas.append([
-            turma.nome,
-            turma.get_turno_display()
+            Paragraph(turma.nome),
+            Paragraph(turma.get_turno_display()),
+            Paragraph(turma.get_tipo_atendimento_display()),
+            Paragraph(str(turma.sala))
         ])
     return report.report_turma(turmas)
+
 
