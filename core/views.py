@@ -6,14 +6,10 @@ from .forms import UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, Aluno
 from core.models import Usuario, Aluno, Turma
 from django.shortcuts import redirect,render, get_object_or_404
 from django.urls import reverse
+from django.http import HttpResponse
 
-# Import PDF Stuff
-from django.http import FileResponse
-import io
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
-from reportlab.lib.pagesizes import letter
-
+from core import report
+from reportlab.platypus import Paragraph
 
 
 class BaseView(LoginRequiredMixin):
@@ -83,6 +79,15 @@ class AlunoVisualizar(BaseView, DetailView):
 class TurmaList(BaseView, ListView):
     model = Turma
     template_name = 'core/turmas.html'
+    paginate_by = 4
+
+    def get_queryset(self):
+        nome_input = self.request.GET.get('nome')
+        if nome_input:
+            turma = Turma.objects.filter(nome__icontains=nome_input)
+        else:
+            turma = Turma.objects.all()
+        return turma
 
 
 class ServidorView(BaseView, CreateView):
@@ -201,92 +206,25 @@ def post_update_turma(request, pk):
 
 ###################### Gerando pdf ##########
 def servidores_pdf(request):
+    servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
+    for servidor in Usuario.objects.all():
+        servidores.append([
+            Paragraph(servidor.nome),
+            Paragraph(str(servidor.data_nascimento)),
+            Paragraph(servidor.cpf),
+            Paragraph(servidor.get_sexo_display()),
+            Paragraph(servidor.email),
+            Paragraph(servidor.endereco)
+        ])
+    return report.report_servidor(servidores)
 	
-	buf = io.BytesIO()
-	
-	c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
-	# Create a text object
-	textob = c.beginText()
-	textob.setTextOrigin(inch, inch)
-	textob.setFont("Helvetica", 14)
 
-	
-	
-	servidores = Usuario.objects.all()
+def turmas_pdf(request):
+    turmas = [['Nome', 'Turno']]
+    for turma in Turma.objects.all():
+        turmas.append([
+            turma.nome,
+            turma.get_turno_display()
+        ])
+    return report.report_turma(turmas)
 
-	
-	lines = []
-
-	for servidor in servidores:
-        
-		lines.append(servidor.cpf)
-		lines.append(servidor.nome)
-		lines.append(servidor.sexo)
-		lines.append(servidor.telefone)
-		lines.append(servidor.email)
-		lines.append(servidor.estado_civil)
-		lines.append(servidor.cep)
-		lines.append(servidor.endereco)
-		lines.append(servidor.zona)
-
-		lines.append(" -------------------------------------------")
-
-	# Loop
-	for line in lines:
-		textob.textLine(line)
-
-	# Finish Up
-	c.drawText(textob)
-	c.showPage()
-	c.save()
-	buf.seek(0)
-
-	# Return something
-	return FileResponse(buf, as_attachment=True, filename='servidores.pdf')
-
-
-def alunos_pdf(request):
-	
-	buf = io.BytesIO()
-	
-	c = canvas.Canvas(buf, pagesize=letter, bottomup=0)
-	# Create a text object
-	textob = c.beginText()
-	textob.setTextOrigin(inch, inch)
-	textob.setFont("Helvetica", 14)
-
-	
-	
-	alunos = Aluno.objects.all()
-
-	
-	lines = []
-
-	for aluno in alunos:
-        
-		lines.append(aluno.cpf)
-		lines.append(aluno.nome)
-		lines.append(aluno.sexo)
-		lines.append(aluno.nome_da_mae)
-		lines.append(aluno.nome_do_pai)
-		lines.append(aluno.responsavel)
-		lines.append(aluno.email)
-		lines.append(aluno.estado_civil)
-		lines.append(aluno.cep)
-		lines.append(aluno.endereco)
-		lines.append(aluno.zona)
-
-		lines.append(" -------------------------------------------")
-
-	# Loop
-	for line in lines:
-		textob.textLine(line)
-
-	# Finish Up
-	c.drawText(textob)
-	c.showPage()
-	c.save()
-	buf.seek(0)
-
-	# Return something
-	return FileResponse(buf, as_attachment=True, filename='alunos.pdf')
