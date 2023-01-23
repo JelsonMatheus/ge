@@ -8,6 +8,8 @@
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+
+      // grafico de servidor por sexo
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -15,22 +17,87 @@
 
         var data = google.visualization.arrayToDataTable([
           ['Sexo', 'Qtd'],
-          ['Masculino',     {{masculino}}],
-          ['Feminino',      {{feminino}}]
+          ['Masculino',{{masculino}}],
+          ['Feminino',{{feminino}}]
         ]);
 
         var options = {
-          title: 'Servidor Por Sexo'
+          title: 'Servidor Por Sexo',
+          colors:[ '#0a5a7b','#de4a7a','#f3b49f', '#FFF', '#120a8f']
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
       }
+
+
+    // grafico de turmas por turno
+      google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart2);
+
+    function drawChart2() {
+      var data = google.visualization.arrayToDataTable([
+        ["Turno", "Turmas", { role: "style" } ],
+        ["Matutino", {{matutino}}, "#00587A"],
+        ["Vespertino", {{vespertino}}, "#70B6C1"],
+        ["Noturno", {{noturno}}, "#FFB703"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Quantidade De Turmas Por Turno",
+        width: 450,
+        height: 250,
+        bar: {groupWidth: "90%"},
+        legend: { position: "none" }
+        
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+
+    // grafico de alunos por zona
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart3);
+      function drawChart3() {
+        var data = google.visualization.arrayToDataTable([
+          ['Alunos', 'Zona'],
+          ['Urbana',{{urbana}}],
+          ['Rural', {{rural}}]
+        ]);
+
+        var options = {
+          title: 'Quantidade De Alunos Por Zona',
+          is3D: true,
+          pieHole: 0.5,
+          colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
     </script>
   </head>
   <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <h2 class="h2-cadastro">RELATÓRIOS</h2>
+    <div class="row m-4">
+      <div class="col-4 " id="piechart" style="width: 450px; height: 250px;"></div>
+      <div class="col-3 " id="columnchart_values" style="width: 450px; height: 250px;"></div>
+    </div>
+  
+      <div class="mx-auto" id="piechart_3d" style="width: 550px; height: 300px;""></div>
+   
+      
+    
+    
   </body>
 </html>
 

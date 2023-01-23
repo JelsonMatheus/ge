@@ -26,5 +26,7 @@ urlpatterns = [
     path('visualizar/turmas/<int:pk>/',views.TurmaVisualizar.as_view(), name='visualizar_turma'),
     path('editar/turmas/<int:pk>/',views.post_update_turma, name='editar_turma'),
     path('deletar/turmas/<int:id>/', views.turma_delete , name='turma_delete'),
+    path('escola/', views.EscolaView.as_view() , name='visualizar_escola'),
+
 
 ]

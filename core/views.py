@@ -38,6 +38,8 @@ class CoreLogoutView(LogoutView):
 class IndexView(BaseView, TemplateView):
     template_name = 'core/index.html'
 
+class EscolaView(BaseView, TemplateView):
+    template_name = 'core/escola.html'
 
 class ServidorList(BaseView, ListView):
     model = Usuario
@@ -138,8 +140,21 @@ def relatorio(request):
     context = {}
     masculino = Usuario.objects.filter(sexo='M').count()
     feminino = Usuario.objects.filter(sexo='F').count()
+
+    matutino = Turma.objects.filter(turno='M').count()
+    vespertino = Turma.objects.filter(turno='V').count()
+    noturno = Turma.objects.filter(turno='N').count()
+
+    urbana = Aluno.objects.filter(zona='U').count()
+    rural = Aluno.objects.filter(zona='R').count()
+
     context[ 'masculino'] = masculino
     context[ 'feminino'] = feminino
+    context[ 'matutino'] = matutino
+    context[ 'vespertino'] = vespertino
+    context[ 'noturno'] = noturno
+    context[ 'urbana'] = urbana
+    context[ 'rural'] = rural
     return render(request, 'core/relatorio.html', context=context)
 
 def servidor_delete(request,id):
