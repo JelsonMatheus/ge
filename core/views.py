@@ -134,6 +134,13 @@ class TurmaVisualizar(BaseView, DetailView):
         return context
 
 
+def relatorio(request):
+    context = {}
+    masculino = Usuario.objects.filter(sexo='M').count()
+    feminino = Usuario.objects.filter(sexo='F').count()
+    context[ 'masculino'] = masculino
+    context[ 'feminino'] = feminino
+    return render(request, 'core/relatorio.html', context=context)
 
 def servidor_delete(request,id):
     servidor = get_object_or_404(Usuario, pk=id)

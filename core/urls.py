@@ -8,6 +8,7 @@ urlpatterns = [
     path('auth/login/', views.CoreLoginView.as_view(), name='login'),
     path('auth/logout/', views.CoreLogoutView.as_view(), name='logout'),
     path('servidores/',views.ServidorList.as_view(), name='lista_servidores'),
+    path('relatorios/',views.relatorio, name='ge_relatorios'),
     path('cadastrar-servidor/',views.ServidorView.as_view(), name='cadastrar_servidor'),
     path('visualizar/servidores/<int:pk>',views.ServidorVisualizar.as_view(), name='visualizar_servidor'),
     path('visualizar/alunos/<int:pk>',views.AlunoVisualizar.as_view(), name='visualizar_aluno'),
