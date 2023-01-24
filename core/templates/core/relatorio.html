@@ -84,18 +84,51 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
         chart.draw(data, options);
       }
+
+    // grafico de turma por modalidades
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart4);
+
+    function drawChart4() {
+      var data = google.visualization.arrayToDataTable([
+        ["Modalidade", "Turmas", { role: "style" } ],
+        ["Ensino Fundamental", {{ens_fundamental}}, "#00587A"],
+        ["Ensino Médio", {{ens_medio}}, "#70B6C1"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Quantidade De Turmas Por Turno",
+        width: 450,
+        height: 250,
+        bar: {groupWidth: "90%"},
+        legend: { position: "none" }
+        
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("piechart2"));
+      chart.draw(view, options);
+  }
     </script>
   </head>
   <body>
     <h2 class="h2-cadastro">RELATÓRIOS</h2>
-    <div class="row m-4">
-      <div class="col-4 " id="piechart" style="width: 450px; height: 250px;"></div>
-      <div class="col-3 " id="columnchart_values" style="width: 450px; height: 250px;"></div>
-    </div>
-  
-      <div class="mx-auto" id="piechart_3d" style="width: 550px; height: 300px;""></div>
-   
-      
+  <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-4 m-2" id="piechart" style="width: 450px; height: 250px;"></div>
+        <div class="col-3 m-2" id="columnchart_values" style="width: 450px; height: 250px;"></div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-4 m-2 g-6" id="piechart_3d" style="width: 450px; height: 250px;""></div>
+        <div class="col-3 m-2" id="piechart2" style="width: 450px; height: 250px;"></div>
+      </div> 
+  </div>
     
     
   </body>

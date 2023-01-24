@@ -12,6 +12,7 @@ from core import report
 from reportlab.platypus import Paragraph
 
 
+
 class BaseView(LoginRequiredMixin):
     """
     Classe base para as demais views que requer um usuário logado.
@@ -148,6 +149,9 @@ def relatorio(request):
     urbana = Aluno.objects.filter(zona='U').count()
     rural = Aluno.objects.filter(zona='R').count()
 
+    ens_fundamental = Turma.objects.filter(tipo_atendimento='1').count()
+    ens_medio = Turma.objects.filter(tipo_atendimento='2').count()
+
     context[ 'masculino'] = masculino
     context[ 'feminino'] = feminino
     context[ 'matutino'] = matutino
@@ -155,6 +159,8 @@ def relatorio(request):
     context[ 'noturno'] = noturno
     context[ 'urbana'] = urbana
     context[ 'rural'] = rural
+    context[ 'ens_fundamental'] = ens_fundamental
+    context[ 'ens_medio'] = ens_medio
     return render(request, 'core/relatorio.html', context=context)
 
 def servidor_delete(request,id):
@@ -229,7 +235,9 @@ def post_update_turma(request, pk):
 ###################### Gerando pdf ##########
 def servidores_pdf(request):
     servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
+    
     for servidor in Usuario.objects.all():
+        Paragraph('YITUTOPABDASJHVDAUYDVHJ')
         servidores.append([
             Paragraph(servidor.nome),
             Paragraph(str(servidor.data_nascimento)),
