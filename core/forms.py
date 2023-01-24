@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Usuario, Aluno, Turma, Disciplina
+from core.models import Usuario, Aluno, Turma, Disciplina, Lotacao
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
 
@@ -36,7 +36,7 @@ class AlunoFormsEdit(UserChangeForm):
 
 
 class TurmaForms(forms.ModelForm):
-    disciplina = forms.ModelMultipleChoiceField(
+    disciplinas = forms.ModelMultipleChoiceField(
         queryset=Disciplina.objects.all(),
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox'}),
         required=True
@@ -56,4 +56,13 @@ class TurmaForms(forms.ModelForm):
         dias = data['dia_semana']
         data['dia_semana'] = ','.join(dias)
         return data
+
+
+class LotacaoForms(forms.ModelForm):
+    class Meta:
+        model = Lotacao
+        exclude = ()
     
+    def __init__(self, *args, **kwargs):
+        super(LotacaoForms, self).__init__(*args, **kwargs)
+        self.fields['professor'].queryset = Usuario.objects.filter(tipo=Usuario.TipoUsuario.PROFESSOR)

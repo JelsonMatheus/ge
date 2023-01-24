@@ -28,6 +28,7 @@ urlpatterns = [
     path('deletar/turmas/<int:id>/', views.turma_delete , name='turma_delete'),
     path('escola/', views.EscolaView.as_view() , name='visualizar_escola'),
     path('professor/', views.ProfessorView.as_view() , name='home_professor'),
-
-
+    path('lotacao/delete/<int:pk>/', views.lotacao_delete, name='lotacao_delete'),
+    path('turmas/<int:pk>/lotacoes/', views.LotacaoList.as_view(), name='lista_lotacoes'),
+    path('turmas/<int:pk>/lotacoes/add/', views.LotacaoView.as_view(), name='cadastrar_lotacao'),
 ]

@@ -43,6 +43,9 @@ class Usuario(AbstractUser):
 
     def is_diretor(self):
         return self.tipo == self.TipoUsuario.DIRETOR
+    
+    def __str__(self) -> str:
+        return self.nome or (self.first_name + self.last_name)
 
 class Aluno(models.Model):
     SEXO_CHOICES = (
@@ -107,5 +110,19 @@ class Turma(models.Model):
     turno = models.CharField(max_length=1,choices=TURNO_CHOICES,default="B")
     tipo_atendimento = models.CharField(max_length=1,choices=ATENDIMENTO_CHOICES,default="B")
     dia_semana =  models.CharField(_('Dia da Semana'), max_length=20)
-    disciplina = models.ManyToManyField(Disciplina, related_name='disciplinas')
+    disciplinas = models.ManyToManyField(Disciplina)
 
+    def __str__(self) -> str:
+        return self.nome
+
+
+class Lotacao(models.Model):
+    STATUS = (
+        ('1', 'Ativo'),
+        ('2', 'Inativo')
+    )
+    professor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='professores')
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name='turmas')
+    disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
+    data_lotacao = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=1, choices=STATUS)

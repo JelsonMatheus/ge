@@ -2,11 +2,13 @@ from django.views.generic import TemplateView, ListView , DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, AlunoFormsEdit
-from core.models import Usuario, Aluno, Turma
+from .forms import (
+    UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, 
+    AlunoFormsEdit, LotacaoForms
+)
+from core.models import Usuario, Aluno, Turma, Lotacao, Disciplina
 from django.shortcuts import redirect,render, get_object_or_404
 from django.urls import reverse
-from django.http import HttpResponse
 
 from core import report
 from reportlab.platypus import Paragraph
@@ -93,6 +95,22 @@ class TurmaList(BaseView, ListView):
         return turma
 
 
+class LotacaoList(BaseView, ListView):
+    queryset = Lotacao.objects.all()
+    template_name = 'core/lotacoes.html'
+
+    def get_queryset(self):
+        self.turma = get_object_or_404(Turma, pk=self.kwargs['pk'])
+        self.queryset.filter(turma=self.turma)
+        return self.queryset.values(
+            'id', 'professor__nome', 'disciplina__nome', 'status'
+        )    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['turma'] = self.turma
+        return context
+
+
 class ServidorView(BaseView, CreateView):
     form_class = UsuarioForms
     template_name = 'core/cadastrar_servidor.html'
@@ -105,6 +123,21 @@ class AlunoView(BaseView, CreateView):
     template_name = 'core/cadastrar_aluno.html'
     success_url = '/alunos/'
     
+
+
+class LotacaoView(BaseView, CreateView):
+    form_class = LotacaoForms
+    template_name = 'core/cadastrar_lotacao.html'
+    
+    def get_context_data(self, **kwargs):
+        turma = get_object_or_404(Turma, pk=self.kwargs['pk'])
+        context = super().get_context_data(**kwargs)
+        context['form'].fields['disciplina'].queryset = turma.disciplinas.all()
+        context['turma'] = turma
+        return context
+    
+    def get_success_url(self) -> str:
+        return reverse('core:lista_lotacoes', args=(self.object.turma_id,))
 
 
 class TurmaView(BaseView, CreateView):
@@ -168,6 +201,7 @@ def servidor_delete(request,id):
     servidor.delete()
     return redirect('/servidores/')
 
+
 def aluno_delete(request,id):
     aluno = get_object_or_404(Aluno, pk=id)
     aluno.delete()
@@ -185,6 +219,11 @@ def visualizar_servidor(request, id, ListView):
     TemplateView = ServidorView
     return render(request, 'core/visualizar_servidor.html', {'servidor' : servidor})
     
+
+def lotacao_delete(request, pk):
+    lotacao = get_object_or_404(Lotacao, pk=pk)
+    lotacao.delete()
+    return redirect(reverse('core:lista_lotacoes', args=(lotacao.turma_id,)))
 
 #################UPDATE#################
 
