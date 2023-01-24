@@ -96,8 +96,8 @@ class ServidorView(BaseView, CreateView):
     form_class = UsuarioForms
     template_name = 'core/cadastrar_servidor.html'
     success_url = '/servidores/'
-    
-
+class ProfessorView(BaseView,TemplateView):
+    template_name = 'core/homeProfessor.html'
 
 class AlunoView(BaseView, CreateView):
     form_class = AlunoForms

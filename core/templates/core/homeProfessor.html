@@ -1,0 +1,53 @@
+{% extends 'core/base/base.html' %}
+{% load static widget_tweaks %}
+
+{% block title %}GE - CADASTRAR SERVIDOR{% endblock %}
+
+{% block content %} 
+<h2 class="h2-cadastro">Professor</h2>
+<div class="container ">
+    <div class="img-professor">
+        <img width="250" height="250" src="{% static 'imagens/professor.png' %}" class="center mx-auto" alt="...">
+        <button>Alterar Imagem</button>
+    </div>
+        <div class="m-5 border p-4">        
+                    <div class="row p-1 ">
+                        <div class="col text-start">
+                            <label class="form-label">Nome : </label>
+                            <td class="campo-visualizar">Maria Gabriella Da Silva</td>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Vínculo : </label>
+                            <td class="campo-visualizar">Efetivo</td>
+                        </div>
+                    </div>
+            
+                    <div class="row p-1">
+                        
+                        <div class="col">
+                            <label class="form-label ">Endereço</label>
+                            <td class="campo-visualizar">Av. Dom Severino, 123</td>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Telefone: </label>
+                            <td class="campo-visualizar">(86) 9 9998-1478</td>
+                        </div>
+                    </div>
+            
+                    <div class="row p-1">
+                        <div class="col">
+                            <label class="form-label">Função : </label>
+                            <td class="campo-visualizar">Docente</td>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Escola : </label>
+                            <td class="campo-visualizar">Escola Estadual da Computação</td>
+                            
+                        </div>
+                    </div> 
+        </div> 
+</div>
+
+
+
+{% endblock %}
