@@ -13,6 +13,7 @@ def report_turma(turmas):
   elements = []
   doc = SimpleDocTemplate(buffer, pagesize=A4)
   c_width=[1.8*inch]
+  doc.title="Turmas"
   table = Table(turmas,rowHeights=30,repeatRows=1,colWidths=c_width)
 
   table.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.lightblue),
@@ -50,6 +51,7 @@ def report_aluno(alunos):
   elements = []
   doc = SimpleDocTemplate(buffer, pagesize=A4)
   c_width=[1*inch]
+  doc.title="Alunos"
   table = Table(alunos,rowHeights=30,repeatRows=1,colWidths=c_width)
 
   table.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.lightblue),

@@ -237,7 +237,7 @@ def servidores_pdf(request):
     servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
     
     for servidor in Usuario.objects.all():
-        Paragraph('YITUTOPABDASJHVDAUYDVHJ')
+        
         servidores.append([
             Paragraph(servidor.nome),
             Paragraph(str(servidor.data_nascimento)),
