@@ -47,7 +47,7 @@
     <div class="mt-5">
         <p class="form-label">Disciplinas:</p>
         <div class="d-flex justify-content-start">
-            {% for disciplina in object.disciplina.all %}
+            {% for disciplina in object.disciplinas.all %}
             <span class="me-3">{{disciplina.nome}}</span><br>
             {% endfor %}
         </div>

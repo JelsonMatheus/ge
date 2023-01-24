@@ -5,9 +5,14 @@
 {% block content %}
 <h2 class="h2-cadastro">DEFINIR LOTAÇÃO</h2>
 <p class="aviso">Os campos com <label class="elemento-asterisco">*</label> são de preenchimento obrigatório</p>
-<form  class="form-background" action="{% url 'core:cadastrar_lotacao' turma.pk %}" method="post">
-  {% csrf_token %}
 
+{% if edit %}
+<form  class="form-background" action="{% url 'core:editar_lotacao' object.pk %}" method="post">
+{% else %}
+<form  class="form-background" action="{% url 'core:cadastrar_lotacao' turma.pk %}" method="post">
+{% endif %}
+  {% csrf_token %}
+  <fieldset>
   <div class="row row-espacamento">
     <div class="col-7">
       {{ form.turma.errors }}

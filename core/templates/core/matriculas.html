@@ -32,11 +32,11 @@
                     <td>{{lotacao.disciplina__nome}}</td>
                     <td>{{lotacao.status|yesno:'Ativo,Inativo'}}</td>
                     <td>
-                        <a class="btn btn-primary me-auto" href="" role="button">
+                        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_servidor' %}" role="button">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
 
-                        <a class="btn btn-primary me-auto" href="{% url 'core:editar_lotacao' lotacao.id %}" role="button">
+                        <a class="btn btn-primary me-auto" href="{% url 'core:servidor_update' user.id %}" role="button">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
 

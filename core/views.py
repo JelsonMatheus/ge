@@ -140,6 +140,24 @@ class LotacaoView(BaseView, CreateView):
         return reverse('core:lista_lotacoes', args=(self.object.turma_id,))
 
 
+class LotacaoEdit(BaseView, UpdateView):
+    queryset = Lotacao.objects.all()
+    form_class = LotacaoForms
+    template_name = 'core/cadastrar_lotacao.html'
+
+    def get_context_data(self, **kwargs):
+        turma = self.object.turma
+        context = super().get_context_data(**kwargs)
+        context['form'].fields['disciplina'].queryset = turma.disciplinas.all()
+        context['turma'] = turma
+        context['edit'] = True
+        return context
+    
+    def get_success_url(self) -> str:
+        return reverse('core:lista_lotacoes', args=(self.object.turma_id,))
+        
+
+
 class TurmaView(BaseView, CreateView):
     form_class = TurmaForms
     template_name = 'core/cadastrar_turma.html'
@@ -256,6 +274,7 @@ def post_update_aluno(request, pk):
     elif(request.method == 'GET'):
         return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
 
+
 def post_update_turma(request, pk):
     turma = get_object_or_404(Turma, pk=pk)
     form = TurmaForms(instance=turma)
@@ -270,6 +289,7 @@ def post_update_turma(request, pk):
             return render(request, 'core/cadastrar_turma.html', {'form': form, 'turma' : turma})
     elif(request.method == 'GET'):
         return render(request, 'core/cadastrar_turma.html', {'form': form, 'turma' : turma})
+
 
 ###################### Gerando pdf ##########
 def servidores_pdf(request):
