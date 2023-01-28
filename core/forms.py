@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Usuario, Aluno, Turma, Disciplina, Lotacao
+from core.models import Usuario, Aluno, Turma, Disciplina, Lotacao, Matricula
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
 
@@ -66,3 +66,19 @@ class LotacaoForms(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(LotacaoForms, self).__init__(*args, **kwargs)
         self.fields['professor'].queryset = Usuario.objects.filter(tipo=Usuario.TipoUsuario.PROFESSOR)
+
+
+class MatriculaForms(forms.ModelForm):
+    class Meta:
+        model = Matricula
+        exclude = ()
+    
+    def __init__(self, edit=False, *args, **kwargs):
+        super(MatriculaForms, self).__init__(*args, **kwargs)
+        self.fields['aluno'].queryset = Aluno.objects.filter(
+            matriculas__isnull=True
+        )
+
+        if edit:
+            self.fields['aluno'].disabled = True
+            self.fields['turma'].disabled = True

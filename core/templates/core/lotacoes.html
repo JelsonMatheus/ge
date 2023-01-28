@@ -30,7 +30,7 @@
                     <td>{{ forloop.counter }} </td>
                     <td>{{lotacao.professor__nome}}</td>
                     <td>{{lotacao.disciplina__nome}}</td>
-                    <td>{{lotacao.status|yesno:'Ativo,Inativo'}}</td>
+                    <td>{{lotacao.get_status_display}}</td>
                     <td>
                         <a class="btn btn-primary me-auto" href="" role="button">
                             <i class="fa-solid fa-magnifying-glass"></i>

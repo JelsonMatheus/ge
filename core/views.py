@@ -4,9 +4,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import (
     UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, 
-    AlunoFormsEdit, LotacaoForms
+    AlunoFormsEdit, LotacaoForms, MatriculaForms
 )
-from core.models import Usuario, Aluno, Turma, Lotacao, Disciplina
+from core.models import Usuario, Aluno, Turma, Lotacao, Disciplina, Matricula
 from django.shortcuts import redirect,render, get_object_or_404
 from django.urls import reverse
 
@@ -186,6 +186,43 @@ class TurmaVisualizar(BaseView, DetailView):
 
         context['dia_selecionado'] = dia_selecionado
         return context
+        
+
+class MatriculaListView(BaseView, ListView):
+    queryset = Matricula.objects.all()
+    template_name = 'core/matriculas.html'
+
+
+class MatriculaCreateView(BaseView, CreateView):
+    form_class = MatriculaForms
+    template_name = 'core/cadastrar_matricula.html'
+    
+    def get_success_url(self) -> str:
+        return reverse('core:listar_matricula')
+
+
+class MatriculaVisualizar(BaseView, DetailView):
+    model = Matricula
+    template_name = 'core/visualizar_matricula.html'
+
+
+class MatriculaEdit(BaseView, UpdateView):
+    queryset = Matricula.objects.all()
+    form_class = MatriculaForms
+    template_name = 'core/cadastrar_matricula.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edit'] = True
+        return context
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['edit'] = True
+        return kwargs
+    
+    def get_success_url(self) -> str:
+        return reverse('core:listar_matricula')
 
 
 def relatorio(request):
@@ -225,16 +262,21 @@ def aluno_delete(request,id):
     aluno.delete()
     return redirect('/alunos/')
 
+
 def turma_delete(request,id):
     turma = get_object_or_404(Turma, pk=id)
     turma.delete()
     return redirect('/turmas/')
 
+
+def matricula_delete(request, pk):
+    matricula = get_object_or_404(Matricula, pk=id)
+    matricula.delete()
+    return redirect(reverse('core:listar_matricula'))
+
     
-def visualizar_servidor(request, id, ListView):
+def visualizar_servidor(request, id):
     servidor = get_object_or_404(Usuario, id=id)
-    model = UsuarioForms
-    TemplateView = ServidorView
     return render(request, 'core/visualizar_servidor.html', {'servidor' : servidor})
     
 

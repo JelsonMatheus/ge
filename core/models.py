@@ -85,6 +85,8 @@ class Aluno(models.Model):
     cpf_do_pai = models.CharField(_('CPF do Pai'), max_length=14)
     responsavel = models.CharField(_('Responsável'), max_length=1, choices=RESPONSAVEL_CHOICES,default="B")
 
+    def __str__(self):
+        return self.nome
 class Disciplina(models.Model):
     nome = models.CharField(_('Nome Disciplina'),max_length=30)
     codigo = models.IntegerField(_('Codigo'),validators=[MinValueValidator(1),MaxValueValidator(20)])
@@ -121,8 +123,24 @@ class Lotacao(models.Model):
         ('1', 'Ativo'),
         ('2', 'Inativo')
     )
-    professor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='professores')
-    turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name='turmas')
+    professor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='lotacoes')
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name='lotacoes')
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
     data_lotacao = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=STATUS)
+
+    class Meta:
+        unique_together = ('professor', 'turma', 'disciplina')
+
+class Matricula(models.Model):
+    STATUS = (
+        ('1', 'Ativo'),
+        ('2', 'Inativo')
+    )
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, related_name='matriculas')
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name='matriculas')
+    data_matricula = models.DateField()
+    status = models.CharField(max_length=1, choices=STATUS)
+
+    class Meta:
+        unique_together = ('aluno', 'turma',)

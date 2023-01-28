@@ -1,0 +1,43 @@
+{% extends 'core/base/base.html' %}
+{% load static widget_tweaks %}
+
+
+
+{% block title %}GE - VISUALIZAR MATRÍCULA{% endblock %}
+
+{% block content %}
+
+<h2 class="h2-cadastro">MATRÍCULA</h2>
+
+<div class="form-background">
+    <div class="row row-espacamento">
+        <div class="col-6">
+            <label class="form-label">Nome:</label>
+            <span>{{object.aluno.nome|upper}}</span>
+        </div>
+
+        <div class="col-6">
+            <label class="form-label">Turma:</label>
+            <span>{{object.turma|upper}}</span>
+        </div>
+    </div>
+
+    <div class="row row-espacamento">
+        <div class="col-6">
+            <label class="form-label">Turno:</label>
+            <span>{{object.turma.get_turno_display|upper}}</span>
+        </div>
+        <div class="col-6">
+            <label class="form-label">Status:</label>
+            <span>{{object.get_status_display|upper}}</span>
+        </div>
+    </div>
+
+    <div class="row row-espacamento">
+        <div class="col-6">
+            <label class="form-label">Data da Matrícula:</label>
+            <span>{{object.data_matricula}}</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
