@@ -8,7 +8,8 @@ from .forms import (
 )
 from core.models import Usuario, Aluno, Turma, Lotacao, Disciplina, Matricula
 from django.shortcuts import redirect,render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 from core import report
 from reportlab.platypus import Paragraph
@@ -41,8 +42,10 @@ class CoreLogoutView(LogoutView):
 class IndexView(BaseView, TemplateView):
     template_name = 'core/index.html'
 
+
 class EscolaView(BaseView, TemplateView):
     template_name = 'core/escola.html'
+
 
 class ServidorList(BaseView, ListView):
     model = Usuario
@@ -62,7 +65,6 @@ class ServidorVisualizar(BaseView, DetailView):
     template_name = 'core/visualizar_servidor.html'
 
 
-
 class AlunoList(BaseView, ListView):
     model = Aluno
     template_name = 'core/alunos.html'
@@ -75,6 +77,7 @@ class AlunoList(BaseView, ListView):
         else:
             aluno = Aluno.objects.all()
         return aluno
+
 
 class AlunoVisualizar(BaseView, DetailView):
     model = Aluno
@@ -115,15 +118,17 @@ class ServidorView(BaseView, CreateView):
     form_class = UsuarioForms
     template_name = 'core/cadastrar_servidor.html'
     success_url = '/servidores/'
+
+
 class ProfessorView(BaseView,TemplateView):
     template_name = 'core/homeProfessor.html'
+
 
 class AlunoView(BaseView, CreateView):
     form_class = AlunoForms
     template_name = 'core/cadastrar_aluno.html'
     success_url = '/alunos/'
     
-
 
 class LotacaoView(BaseView, CreateView):
     form_class = LotacaoForms
@@ -156,7 +161,6 @@ class LotacaoEdit(BaseView, UpdateView):
     def get_success_url(self) -> str:
         return reverse('core:lista_lotacoes', args=(self.object.turma_id,))
         
-
 
 class TurmaView(BaseView, CreateView):
     form_class = TurmaForms
@@ -225,6 +229,7 @@ class MatriculaEdit(BaseView, UpdateView):
         return reverse('core:listar_matricula')
 
 
+@login_required(reverse_lazy('core:login'))
 def relatorio(request):
     context = {}
     masculino = Usuario.objects.filter(sexo='M').count()
@@ -251,42 +256,50 @@ def relatorio(request):
     context[ 'ens_medio'] = ens_medio
     return render(request, 'core/relatorio.html', context=context)
 
+
+@login_required(reverse_lazy('core:login'))
 def servidor_delete(request,id):
     servidor = get_object_or_404(Usuario, pk=id)
     servidor.delete()
     return redirect('/servidores/')
 
 
+@login_required(reverse_lazy('core:login'))
 def aluno_delete(request,id):
     aluno = get_object_or_404(Aluno, pk=id)
     aluno.delete()
     return redirect('/alunos/')
 
 
+@login_required(reverse_lazy('core:login'))
 def turma_delete(request,id):
     turma = get_object_or_404(Turma, pk=id)
     turma.delete()
     return redirect('/turmas/')
 
 
+@login_required(reverse_lazy('core:login'))
 def matricula_delete(request, pk):
     matricula = get_object_or_404(Matricula, pk=id)
     matricula.delete()
     return redirect(reverse('core:listar_matricula'))
 
-    
+
+@login_required(reverse_lazy('core:login'))
 def visualizar_servidor(request, id):
     servidor = get_object_or_404(Usuario, id=id)
     return render(request, 'core/visualizar_servidor.html', {'servidor' : servidor})
     
 
+@login_required(reverse_lazy('core:login'))
 def lotacao_delete(request, pk):
     lotacao = get_object_or_404(Lotacao, pk=pk)
     lotacao.delete()
     return redirect(reverse('core:lista_lotacoes', args=(lotacao.turma_id,)))
 
-#################UPDATE#################
 
+#################UPDATE#################
+@login_required(reverse_lazy('core:login'))
 def post_update(request, pk):
     servidor = get_object_or_404(Usuario, pk=pk)
     form = UsuarioFormsEdit(instance=servidor)
@@ -302,6 +315,7 @@ def post_update(request, pk):
         return render(request, 'core/editar_servidor.html', {'form': form, 'servidor' : servidor})
 
 
+@login_required(reverse_lazy('core:login'))
 def post_update_aluno(request, pk):
     aluno = get_object_or_404(Aluno, pk=pk)
     form = AlunoFormsEdit(instance=aluno)
@@ -317,6 +331,7 @@ def post_update_aluno(request, pk):
         return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
 
 
+@login_required(reverse_lazy('core:login'))
 def post_update_turma(request, pk):
     turma = get_object_or_404(Turma, pk=pk)
     form = TurmaForms(instance=turma)
@@ -334,6 +349,7 @@ def post_update_turma(request, pk):
 
 
 ###################### Gerando pdf ##########
+@login_required(reverse_lazy('core:login'))
 def servidores_pdf(request):
     servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
     
@@ -349,6 +365,8 @@ def servidores_pdf(request):
         ])
     return report.report_servidor(servidores)
 
+
+@login_required(reverse_lazy('core:login'))
 def alunos_pdf(request):
     alunos = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Mãe', 'Pai', 'Responsável']]
     for aluno in Aluno.objects.all():
@@ -364,6 +382,7 @@ def alunos_pdf(request):
     return report.report_aluno(alunos)
 	
 
+@login_required(reverse_lazy('core:login'))
 def turmas_pdf(request):
     turmas = [['Nome', 'Turno', 'Modalidade', 'Sala']]
     for turma in Turma.objects.all():
