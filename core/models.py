@@ -40,7 +40,7 @@ class Usuario(AbstractUser):
     endereco = models.CharField(_('Endereço'),max_length=200)
     zona = models.CharField(_('Zona'),max_length=1, choices=ZONA_CHOICES,default="B")
 
-
+    @property
     def is_diretor(self):
         return self.tipo == self.TipoUsuario.DIRETOR
     

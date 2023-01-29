@@ -31,6 +31,12 @@ class CoreLoginView(LoginView):
     redirect_authenticated_user = True
     next_page = 'core:index'
 
+    def get_success_url(self):
+        print('aaaaaaa'*100)
+        print(self.request.user.is_diretor)
+        if self.request.user.is_diretor:
+            return reverse(self.next_page)
+        return reverse('core:home_professor')
 
 class CoreLogoutView(LogoutView):
     """
@@ -120,7 +126,7 @@ class ServidorView(BaseView, CreateView):
     success_url = '/servidores/'
 
 
-class ProfessorView(BaseView,TemplateView):
+class ProfessorView(BaseView, TemplateView):
     template_name = 'core/homeProfessor.html'
 
 
