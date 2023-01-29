@@ -1,0 +1,39 @@
+{% extends 'core/base/base.html' %}
+{% load static %}
+
+{% block title %} GE - Page Not Found {%endblock%}
+
+{% block styles %}
+{{ block.super }}
+<style>
+    .jumbotron {
+        margin-top: 5rem;
+        padding: 3rem;
+        font-family: 'Paytone One', sans-serif;
+        color: var(--color-primary);
+    }
+    .fs-1 {
+        font-size: calc(5.5rem + 1vw) !important;
+    }
+    .fs-2 {
+        font-size: calc(2.5rem + 1vw) !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="jumbotron container-fluid">
+        <div class="container text-left">
+            <h1 class="fs-2">
+                <span class="fs-1">404</span>
+                <br>Page Not Found
+            </h1>
+            <p class="text-black mt-4">
+                A página que você procura não existe.
+                Por favor, volte para <a href="{% url 'core:index' %}">Home</a>
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}

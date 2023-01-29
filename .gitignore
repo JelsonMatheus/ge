@@ -4,6 +4,7 @@
 *.pyc
 __pycache__/
 *.py[cod]
+staticfiles
 
 # Python # 
 *.py[cod] 
