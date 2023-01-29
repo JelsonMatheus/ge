@@ -1,26 +1,36 @@
 from django.views.generic import TemplateView, ListView , DetailView 
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import AccessMixin
 from .forms import (
     UsuarioForms, AlunoForms, TurmaForms, UsuarioFormsEdit, 
     AlunoFormsEdit, LotacaoForms, MatriculaForms
 )
-from core.models import Usuario, Aluno, Turma, Lotacao, Disciplina, Matricula
+from core.models import Usuario, Aluno, Turma, Lotacao, Matricula
 from django.shortcuts import redirect,render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from core.auth import permissions as perm
 
 from core import report
 from reportlab.platypus import Paragraph
 
 
 
-class BaseView(LoginRequiredMixin):
+class CustomLoginAccessMixin(AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect(reverse(self.get_login_url()))
+        return super().dispatch(request, *args, **kwargs)
+
+
+class BaseView(CustomLoginAccessMixin, perm.UserTypeTest):
     """
     Classe base para as demais views que requer um usuário logado.
     """
-    login_url = '/auth/login/'
+    login_url = 'core:login'
+    user_type = Usuario.TipoUsuario.DIRETOR
 
 
 class CoreLoginView(LoginView):
@@ -32,8 +42,6 @@ class CoreLoginView(LoginView):
     next_page = 'core:index'
 
     def get_success_url(self):
-        print('aaaaaaa'*100)
-        print(self.request.user.is_diretor)
         if self.request.user.is_diretor:
             return reverse(self.next_page)
         return reverse('core:home_professor')
@@ -128,6 +136,7 @@ class ServidorView(BaseView, CreateView):
 
 class ProfessorView(BaseView, TemplateView):
     template_name = 'core/homeProfessor.html'
+    user_type = Usuario.TipoUsuario.PROFESSOR
 
 
 class AlunoView(BaseView, CreateView):
@@ -236,6 +245,7 @@ class MatriculaEdit(BaseView, UpdateView):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def relatorio(request):
     context = {}
     masculino = Usuario.objects.filter(sexo='M').count()
@@ -264,13 +274,15 @@ def relatorio(request):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
-def servidor_delete(request,id):
+@user_passes_test(perm.test_user_diretor)
+def servidor_delete(request, id):
     servidor = get_object_or_404(Usuario, pk=id)
     servidor.delete()
     return redirect('/servidores/')
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def aluno_delete(request,id):
     aluno = get_object_or_404(Aluno, pk=id)
     aluno.delete()
@@ -278,6 +290,7 @@ def aluno_delete(request,id):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def turma_delete(request,id):
     turma = get_object_or_404(Turma, pk=id)
     turma.delete()
@@ -285,6 +298,7 @@ def turma_delete(request,id):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def matricula_delete(request, pk):
     matricula = get_object_or_404(Matricula, pk=id)
     matricula.delete()
@@ -292,12 +306,14 @@ def matricula_delete(request, pk):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def visualizar_servidor(request, id):
     servidor = get_object_or_404(Usuario, id=id)
     return render(request, 'core/visualizar_servidor.html', {'servidor' : servidor})
     
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def lotacao_delete(request, pk):
     lotacao = get_object_or_404(Lotacao, pk=pk)
     lotacao.delete()
@@ -306,6 +322,7 @@ def lotacao_delete(request, pk):
 
 #################UPDATE#################
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def post_update(request, pk):
     servidor = get_object_or_404(Usuario, pk=pk)
     form = UsuarioFormsEdit(instance=servidor)
@@ -322,6 +339,7 @@ def post_update(request, pk):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def post_update_aluno(request, pk):
     aluno = get_object_or_404(Aluno, pk=pk)
     form = AlunoFormsEdit(instance=aluno)
@@ -338,6 +356,7 @@ def post_update_aluno(request, pk):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def post_update_turma(request, pk):
     turma = get_object_or_404(Turma, pk=pk)
     form = TurmaForms(instance=turma)
@@ -356,6 +375,7 @@ def post_update_turma(request, pk):
 
 ###################### Gerando pdf ##########
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def servidores_pdf(request):
     servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
     
@@ -373,6 +393,7 @@ def servidores_pdf(request):
 
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def alunos_pdf(request):
     alunos = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Mãe', 'Pai', 'Responsável']]
     for aluno in Aluno.objects.all():
@@ -389,6 +410,7 @@ def alunos_pdf(request):
 	
 
 @login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
 def turmas_pdf(request):
     turmas = [['Nome', 'Turno', 'Modalidade', 'Sala']]
     for turma in Turma.objects.all():
