@@ -229,7 +229,7 @@ class MatriculaEdit(BaseView, UpdateView):
         return reverse('core:listar_matricula')
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def relatorio(request):
     context = {}
     masculino = Usuario.objects.filter(sexo='M').count()
@@ -257,41 +257,41 @@ def relatorio(request):
     return render(request, 'core/relatorio.html', context=context)
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def servidor_delete(request,id):
     servidor = get_object_or_404(Usuario, pk=id)
     servidor.delete()
     return redirect('/servidores/')
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def aluno_delete(request,id):
     aluno = get_object_or_404(Aluno, pk=id)
     aluno.delete()
     return redirect('/alunos/')
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def turma_delete(request,id):
     turma = get_object_or_404(Turma, pk=id)
     turma.delete()
     return redirect('/turmas/')
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def matricula_delete(request, pk):
     matricula = get_object_or_404(Matricula, pk=id)
     matricula.delete()
     return redirect(reverse('core:listar_matricula'))
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def visualizar_servidor(request, id):
     servidor = get_object_or_404(Usuario, id=id)
     return render(request, 'core/visualizar_servidor.html', {'servidor' : servidor})
     
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def lotacao_delete(request, pk):
     lotacao = get_object_or_404(Lotacao, pk=pk)
     lotacao.delete()
@@ -299,7 +299,7 @@ def lotacao_delete(request, pk):
 
 
 #################UPDATE#################
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def post_update(request, pk):
     servidor = get_object_or_404(Usuario, pk=pk)
     form = UsuarioFormsEdit(instance=servidor)
@@ -315,7 +315,7 @@ def post_update(request, pk):
         return render(request, 'core/editar_servidor.html', {'form': form, 'servidor' : servidor})
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def post_update_aluno(request, pk):
     aluno = get_object_or_404(Aluno, pk=pk)
     form = AlunoFormsEdit(instance=aluno)
@@ -331,7 +331,7 @@ def post_update_aluno(request, pk):
         return render(request, 'core/editar_aluno.html', {'form': form, 'aluno' : aluno})
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def post_update_turma(request, pk):
     turma = get_object_or_404(Turma, pk=pk)
     form = TurmaForms(instance=turma)
@@ -349,7 +349,7 @@ def post_update_turma(request, pk):
 
 
 ###################### Gerando pdf ##########
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def servidores_pdf(request):
     servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
     
@@ -366,7 +366,7 @@ def servidores_pdf(request):
     return report.report_servidor(servidores)
 
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def alunos_pdf(request):
     alunos = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Mãe', 'Pai', 'Responsável']]
     for aluno in Aluno.objects.all():
@@ -382,7 +382,7 @@ def alunos_pdf(request):
     return report.report_aluno(alunos)
 	
 
-@login_required(reverse_lazy('core:login'))
+@login_required(login_url=reverse_lazy('core:login'))
 def turmas_pdf(request):
     turmas = [['Nome', 'Turno', 'Modalidade', 'Sala']]
     for turma in Turma.objects.all():
