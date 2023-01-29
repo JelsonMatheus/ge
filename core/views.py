@@ -379,13 +379,12 @@ def post_update_turma(request, pk):
 def servidores_pdf(request):
     servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
     
-    for servidor in Usuario.objects.all():
+    for servidor in Usuario.objects.filter(tipo='P'):
         
         servidores.append([
             Paragraph(servidor.nome),
             Paragraph(str(servidor.data_nascimento)),
             Paragraph(servidor.cpf),
-            Paragraph(servidor.get_sexo_display()),
             Paragraph(servidor.email),
             Paragraph(servidor.endereco)
         ])
