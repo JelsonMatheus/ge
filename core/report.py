@@ -57,12 +57,12 @@ def report_servidor(servidores):
     return response
 
 
-def report_aluno(alunos):
+def report_aluno(matriculas):
     buffer = io.BytesIO()
     elements = []
     doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=1*cm, leftMargin=1*cm)
 
-    table = factory_table(alunos, repeatRows=1)
+    table = factory_table(matriculas, repeatRows=1)
     title = factory_paragraph('Relatório de Alunos', fontSize=18, alignment=1)
 
     elements.extend([title, Spacer(1, 1*cm)])
@@ -71,3 +71,21 @@ def report_aluno(alunos):
     buffer.seek(io.SEEK_SET)
     response = FileResponse(buffer, as_attachment=False, filename='aluno.pdf')
     return response
+
+
+    
+def report_matricula(matriculas):
+    buffer = io.BytesIO()
+    elements = []
+    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=1*cm, leftMargin=1*cm)
+
+    table = factory_table(matriculas, repeatRows=1)
+    title = factory_paragraph('Relatório de Matrículas', fontSize=18, alignment=1)
+
+    elements.extend([title, Spacer(1, 1*cm)])
+    elements.append(table)
+    doc.build(elements)
+    buffer.seek(io.SEEK_SET)
+    response = FileResponse(buffer, as_attachment=False, filename='matricula.pdf')
+    return response
+

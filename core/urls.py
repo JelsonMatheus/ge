@@ -25,6 +25,7 @@ urlpatterns = [
     path('deletar/alunos/<int:id>/', views.aluno_delete , name='aluno_delete'),
     path('servidores/servidores.pdf/', views.servidores_pdf , name='servidores_pdf'),
     path('alunos/pdf/', views.alunos_pdf , name='alunos_pdf'),
+    path('matriculas/pdf/', views.matriculas_pdf , name='matriculas_pdf'),
     path('turmas/pdf/', views.turmas_pdf , name='turmas_pdf'),
     path('visualizar/turmas/<int:pk>/',views.TurmaVisualizar.as_view(), name='visualizar_turma'),
     path('editar/turmas/<int:pk>/',views.post_update_turma, name='editar_turma'),

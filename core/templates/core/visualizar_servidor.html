@@ -57,7 +57,21 @@
                     {% endif %}
                     
                 </div>
+
+                <div class="col-3 gap-3">
+                    <label class="form-label">Função: </label>
+                    
+                    {% if object.tipo == "P"%}
+                        <td class="campo-visualizar">Professor(a)</td>
+                    {% elif object.tipo == "B"  %}
+                        <td class="campo-visualizar">Não informado</td>
+                    {% else %}
+                        <td class="campo-visualizar">Diretor(a)</td>
+                    {% endif %}
+                    
+                </div>
             </div>
+            
             
             <div class="row row-espacamento">
                 <div class="col-4">

@@ -108,7 +108,15 @@
                 <label for="{{ form.is.active.id_for_label }}" class="form-label">Ativo</label>
             </div>
         </div>
+        <div class="col-3 gap-2">
+            {{ form.tipo.errors }}
+            <label for="{{ form.tipo.id_for_label }}" class="form-label">Função <label class="elemento-asterisco">*</label></label>
+            {% render_field form.tipo class+="form-select" placeholder="Função" %}
+        </div>
     </div>
+
+    
+
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button class="btn btn-salvar btn-success me-md-2"> 
             <i class="fa-solid fa-check"></i> 

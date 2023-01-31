@@ -6,11 +6,15 @@
 {% block content %}
 <h2 class="h2-cadastro">Matrículas</h2>
 
-<div class="p-1 p-sm-5">
-    <div class="my-3 d-flex">
+<div class="p-1 p-sm-4">
+    <div class="col-4 p-3 d-flex">
         <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_matricula' %}" role="button">
             <i class="bi bi-plus-circle"></i>
             Adicionar
+        </a>
+        <a class="btn btn-primary me-auto" href="{% url 'core:matriculas_pdf' %}" role="button">
+            <i class="bi bi-plus-circle"></i>
+            Exportar
         </a>
     </div>
     <div class="mt-1 table-responsive">
@@ -54,6 +58,34 @@
             {% endfor %}
             </tbody>
         </table>
+        
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                {% if page_obj.has_previous %}
+                    {% if request.GET.nome %}
+                    <li class="page-item "><a class="page-link" href="?page=1&nome={{request.GET.nome}}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&nome={{request.GET.nome}}">1</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page=1">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&nome={{request.GET.nome}}">1</a></li>
+                    {% endif %}
+                {% endif %}
+
+                <!-- {% for page in page_obj %}
+                {% endfor %} -->
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ page_obj.number }}</span>
+                </li>
+
+                {% if page_obj.has_next %}  
+                    {% if request.GET.nome %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&nome={{request.GET.nome}}">Next</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+          </nav>
     </div>
 </div>
 {% endblock %}

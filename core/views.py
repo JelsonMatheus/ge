@@ -210,6 +210,8 @@ class TurmaVisualizar(BaseView, DetailView):
 class MatriculaListView(BaseView, ListView):
     queryset = Matricula.objects.all()
     template_name = 'core/matriculas.html'
+    paginate_by = 4
+
 
 
 class MatriculaCreateView(BaseView, CreateView):
@@ -422,3 +424,14 @@ def turmas_pdf(request):
     return report.report_turma(turmas)
 
 
+@login_required(login_url=reverse_lazy('core:login'))
+@user_passes_test(perm.test_user_diretor)
+def matriculas_pdf(request):
+    matriculas = [['Aluno', 'Turma', 'Data Matrícula']]
+    for matricula in Matricula.objects.all():
+        matriculas.append([
+            Paragraph(matricula.aluno.nome),
+            Paragraph(matricula.turma.nome),
+            Paragraph(str(matricula.data_matricula))
+        ])
+    return report.report_matricula(matriculas)
