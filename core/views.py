@@ -379,7 +379,7 @@ def post_update_turma(request, pk):
 @login_required(login_url=reverse_lazy('core:login'))
 @user_passes_test(perm.test_user_diretor)
 def servidores_pdf(request):
-    servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Endereço']]
+    servidores = [['Nome', 'Nascimento', 'CPF', 'Sexo', 'Email', 'Função']]
     
     for servidor in Usuario.objects.filter(tipo='P'):
         
@@ -387,8 +387,9 @@ def servidores_pdf(request):
             Paragraph(servidor.nome),
             Paragraph(str(servidor.data_nascimento)),
             Paragraph(servidor.cpf),
+            Paragraph(servidor.get_sexo_display()),
             Paragraph(servidor.email),
-            Paragraph(servidor.endereco)
+            Paragraph(servidor.get_tipo_display())
         ])
     return report.report_servidor(servidores)
 

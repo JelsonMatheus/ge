@@ -81,6 +81,13 @@
     </div>
 
     <div class="row">
+        <div class="col-3 gap-3">
+            {{ form.tipo.errors }}
+            <label class="form-label">Função: </label>
+            {% render_field form.tipo class+="form-select" placeholder="Função" %}
+            
+        </div>
+
         <div class="col-3 align-self-end">
             <div class="form-check">
                {% render_field form.is_active  class+="form-check-input"%}
