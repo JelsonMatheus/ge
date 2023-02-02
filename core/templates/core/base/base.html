@@ -29,7 +29,7 @@
             </button>
             <span class="ms-2 ms-md-5 fw-bold"> <a class="navbar-brand" href="{% url 'core:index'%}">HOME</a></span>
         </div>
-        <span class="px-5 fs-5 fw-bold text-dark">Óla, {{user.nome|truncatewords:1}}</span>
+        <span class="px-5 fs-5 fw-bold text-dark">Olá, {{user.nome|truncatewords:1}}</span>
         <a class="btn ms-auto me-5" href="{% url 'core:logout' %}">
             <i class="fa-solid fa-right-from-bracket text-danger" style="font-size: 24px;"></i>
         </a>

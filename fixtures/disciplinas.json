@@ -9,6 +9,14 @@
 },
 {
   "model": "core.disciplina",
+  "pk": 1,
+  "fields": {
+    "nome": "Português",
+    "codigo": 1
+  }
+},
+{
+  "model": "core.disciplina",
   "pk": 2,
   "fields": {
     "nome": "Língua Portuguesa",

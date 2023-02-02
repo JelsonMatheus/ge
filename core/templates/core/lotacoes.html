@@ -8,7 +8,11 @@
 
 <div class="p-1 p-sm-5">
     <div class="my-3 d-flex">
-        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_lotacao' turma.pk %}" role="button">
+        <a class="btn btn-primary me-auto" href="{% url 'core:lista_turmas'%}" role="button">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+        </a>
+        <a class="btn btn-primary" href="{% url 'core:cadastrar_lotacao' turma.pk %}" role="button">
             <i class="bi bi-plus-circle"></i>
             Adicionar
         </a>

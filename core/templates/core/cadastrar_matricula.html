@@ -1,9 +1,9 @@
 {% extends 'core/base/base.html' %} 
 {% load static widget_tweaks %}
 
-{% block title %}GE - CADASTRAR LOTAÇÃO{% endblock %}
+{% block title %}GE - MATRICULA {% endblock %}
 {% block content %}
-<h2 class="h2-cadastro">DEFINIR LOTAÇÃO</h2>
+<h2 class="h2-cadastro">{{edit|yesno:"EDITAR, CADASTRAR"}} MATRÍCULA</h2>
 <p class="aviso">Os campos com <label class="elemento-asterisco">*</label> são de preenchimento obrigatório</p>
 
 {% if edit %}

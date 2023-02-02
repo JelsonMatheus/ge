@@ -64,7 +64,7 @@ class EscolaView(BaseView, TemplateView):
 class ServidorList(BaseView, ListView):
     model = Usuario
     template_name = 'core/servidores.html'
-    paginate_by =4
+    paginate_by = 4
 
     def get_queryset(self):
         nome_input = self.request.GET.get('nome')
@@ -118,8 +118,8 @@ class LotacaoList(BaseView, ListView):
 
     def get_queryset(self):
         self.turma = get_object_or_404(Turma, pk=self.kwargs['pk'])
-        self.queryset.filter(turma=self.turma)
-        return self.queryset.values(
+        query = self.queryset.filter(turma=self.turma)
+        return query.values(
             'id', 'professor__nome', 'disciplina__nome', 'status'
         )    
     def get_context_data(self, **kwargs):
@@ -181,13 +181,6 @@ class TurmaView(BaseView, CreateView):
     form_class = TurmaForms
     template_name = 'core/cadastrar_turma.html'
     success_url = '/turmas/'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        dias = ['Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 
-                'Quinta-Feira', 'Sexta-Feira', 'Sábado', 'Domingo']
-        context['dias'] = dias
-        return context
 
 
 class TurmaVisualizar(BaseView, DetailView):
@@ -361,7 +354,8 @@ def post_update_aluno(request, pk):
 @user_passes_test(perm.test_user_diretor)
 def post_update_turma(request, pk):
     turma = get_object_or_404(Turma, pk=pk)
-    form = TurmaForms(instance=turma)
+    dias = turma.dia_semana.split(',')
+    form = TurmaForms(initial={'dia_semana': dias}, instance=turma)
 
     if(request.method == 'POST'):
         form = TurmaForms(request.POST, instance=turma)
