@@ -22,7 +22,7 @@
         <div class="col-3 data_nascimento">
             {{ form.data_nascimento.errors }}
             <label for="{{ form.data_nascimento.id_for_label }}" class="form-label">Data de Nascimento<i class="elemento-asterisco">*</i></label>
-            {% render_field form.data_nascimento class+="form-control" placeholder="2022-05-02" %}
+            {% render_field form.data_nascimento class+="form-control" placeholder="dd/mm/aaaa" %}
         </div>
     </div>
 
