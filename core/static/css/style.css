@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+
+/********* Colors **********/
+:root {
+    --color-primary: #0777a3;
+    --color-primary-dark: #00587a;
+    --color-secundary-dark : #0777A380;
+    --color-secondary: #C4C4C433;
+    --color-text: #fff;
+    --navbar-height: 3rem;
+}
+
+body {
+    height: 100vh;
+    background: #f5f5dc;
+    font-family: Roboto, sans-serif;
+}
+
+.wrapper {
+    height: calc(100% - var(--navbar-height));
+}
+
+.wrapper>.row {
+    height: auto;
+}
+
+.navbar {
+    height: var(--navbar-height);
+    background: white !important;
+}
+
+.navbar-brand {
+    height: var(--navbar-height);
+    color: var(--color-text) !important;
+    background: var(--color-primary);
+    font-size: 1rem;
+}
+
+.navbar-toggler-icon {
+    font-size: 0.8rem;
+}
+
+#sidebarMenu {
+    background: var(--color-primary-dark);
+}
+
+#sidebarMenu .nav-link {
+    color: white;
+}
+
+#sidebarMenu .nav-link.active {
+    background: var(--color-secondary);
+    color: black;
+}
+
+#sidebarMenu .nav-link:hover {
+    background: var(--color-secondary);
+    color: black;
+}
+
+.table>thead {
+    background: var(--color-secondary);
+}
+
+.table>tbody tr:nth-child(odd) {
+    background: #e6e2dc !important;
+}
+
+.page-item.active .page-link {
+    border: black;
+}
+
+.page-item .page-link {
+    color: black;
+}
+
+.bi-pencil-square {
+    color: blue;
+}
+
+.toast-danger {
+    background: red;
+    color: white;
+}
+
+.toast-succes {
+    background: rgb(71, 131, 71);
+    color: white
+}
+
+.icon {
+    font-size: 18px;
+}
+
+select[readonly] {
+    background: #eee;
+    /*Simular campo inativo - Sugestão @GabrielRodrigues*/
+    pointer-events: none;
+    touch-action: none;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+}
+
+thead > tr {
+    background: var(--color-primary);
+    color: white;
+}
+
+.errorlist {
+    color: red;
+    font-size: small;
+}
+
+.checkbox:not(input) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    main>.container {
+        border: 1px solid var(--border-color);
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+
+    .wrapper>.row {
+        height: 100%;
+    }
+}
+
+.h2-cadastro {
+    color: var(--color-text);
+    background: rgba(7, 119, 163, 0.75);
+    padding: 0.7rem;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.aviso {
+    color: red;
+    padding: 10px;
+}
+
+.form-background {
+    background: rgba(7, 119, 163, 0.1);
+    padding: 35px;
+
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.row-espacamento {
+    margin-bottom: 1rem;
+}
+
+.elemento-asterisco {
+    color: red;
+    padding-left: 0.3em;
+}
+
+.data_nascimento {
+    margin-left: 8.5%;
+}
+
+.btn-salvar {
+    background-color: #5D9D1DCC;
+    color: white;
+    margin: 30px;
+
+}
+.campo-pesquisar{
+    width: 35rem;
+    background-color: var(--color-secundary-dark);
+    border-radius:15px ;
+    display: flex;
+    gap:40px;
+
+}
+#input-pesquisar{
+    border-radius: 8px;
+    width: 30rem;
+    padding: 10px;
+}
+.img-professor{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    align-items: center;
+    
+}
+.img-professor img{
+    border: 1px solid #00577aab;
+    border-radius: 3px;
+}
+.img-professor button{
+    width: 16rem;
+    border: 1px solid #00587A;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 10px;
+}
+.card-graficos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}

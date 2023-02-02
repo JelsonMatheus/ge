@@ -1,0 +1,77 @@
+{% extends 'core/base/base.html' %}
+{% load static widget_tweaks %}
+
+{% block title %}GE - CADASTRAR SERVIDOR{% endblock %}
+
+{% block content %}
+<h2 class="h2-cadastro">Turmas</h2>
+
+<div class="p-1 p-sm-4">
+    <form action="?"  class=" p-4 campo-pesquisar" method="GET">
+
+        <input type="text" name="nome"  id="input-pesquisar" value="{{ request.Get.nome }}" class="p-1 border" autocomplete="off" placeholder="Nome">
+
+        <button type="submit" class="btn btn-primary ">Buscar</button>
+
+        <a href="{% url 'core:lista_turmas' %}" class="btn btn-light">Limpar</a>
+
+    </form>
+
+    <div class="col-4 p-3 d-flex">
+        <a class="btn btn-primary me-auto" href="{% url 'core:cadastrar_turma' %}" role="button">
+            <i class="bi bi-plus-circle"></i>
+            Adicionar
+        </a>
+        <a class="btn btn-primary me-auto" href="{% url 'core:turmas_pdf' %}" role="button">
+            <i class="bi bi-plus-circle"></i>
+            Exportar
+        </a>
+    </div>
+
+    <div class="mt-1 table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">SALA</th>
+                    <th scope="col">TURNO</th>
+                    <th width="25%" scope="col">AÇÕES</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for turma in object_list %}
+                <tr>
+                    <td>{{ forloop.counter }} </td>
+                    <td>{{turma.nome}}</td>
+                    <td>{{turma.sala}}</td>
+                    <td>{{turma.get_turno_display}}</td>
+                    <td>
+                        <a class="btn btn-primary me-auto" href="{% url 'core:visualizar_turma' turma.id %}" role="button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </a>
+
+                        <a class="btn btn-primary me-auto" href="{% url 'core:editar_turma' turma.id %}" role="button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+
+                        <a class="btn btn-primary me-auto" href="{% url 'core:lista_lotacoes' turma.id %}" role="button">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </a>
+
+                        <a class="btn btn-danger me-auto" href="{% url 'core:turma_delete' turma.id %}" role="button">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Sem resultados.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include 'core/base/paginacao.html'%}
+    </div>
+</div>
+{% endblock %}

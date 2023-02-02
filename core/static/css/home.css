@@ -1,11 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 :root{
     --azul-claro: rgba(7, 119, 163, 1);
     --azul-escuro : rgba(0, 88, 122, 1);
     --branco:rgb(255, 255, 255);
     --cinza-transparente: rgba(196, 196, 196, 0.2);
-
-    ;
-
+  
 }
 
 *{
@@ -55,9 +54,20 @@ tr .nav-admin{
     margin: 0;
     
 }
-i{
-    text-align: left;
-    align-items: left;
-    align-content: left;
-    margin-right: 10px;
+.ge-card {
+    width: 12rem;
+    background-color: #f8fffa;
+    padding: 1rem 1rem;
 }
+.ge-card img{
+    width: 80%;
+}
+.ge-card p {
+    margin-top: 0.75rem;
+    padding: 0px;
+    margin-bottom: 0px;
+    color: black;
+    font-weight:500 ;
+    font-size: 2rem;
+}
+

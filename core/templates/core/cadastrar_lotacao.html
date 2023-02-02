@@ -1,0 +1,49 @@
+{% extends 'core/base/base.html' %} 
+{% load static widget_tweaks %}
+
+{% block title %}GE - CADASTRAR LOTAÇÃO{% endblock %}
+{% block content %}
+<h2 class="h2-cadastro">DEFINIR LOTAÇÃO</h2>
+<p class="aviso">Os campos com <label class="elemento-asterisco">*</label> são de preenchimento obrigatório</p>
+
+{% if edit %}
+<form  class="form-background" action="{% url 'core:editar_lotacao' object.pk %}" method="post">
+{% else %}
+<form  class="form-background" action="{% url 'core:cadastrar_lotacao' turma.pk %}" method="post">
+{% endif %}
+  {% csrf_token %}
+  <fieldset>
+  <div class="row row-espacamento">
+    <div class="col-7">
+      {{ form.turma.errors }}
+      <label for="{{ form.turma.id_for_label }}" class="form-label">Turma:<span class="elemento-asterisco">*</span></label>
+      <select class="form-select" name="turma">
+        <option value="{{turma.pk}}" selected>{{turma}}</option>
+      </select>
+    </div>
+    <div class="col-5">
+      {{ form.disciplina.errors }}
+      <label for="{{ form.disciplina.id_for_label }}" class="form-label">Disciplina:<span class="elemento-asterisco">*</span></label>
+      {% render_field form.disciplina class+="form-select" %}
+    </div>
+  </div>
+
+  <div class="row row-espacamento">
+    <div class="col-7">
+      {{ form.professor.errors }}
+      <label for="{{ form.professor.id_for_label }}" class="form-label">Professor:<span class="elemento-asterisco">*</span></label>
+      {% render_field form.professor class+="form-select" %}
+    </div>
+    <div class="col-5">
+      {{ form.status.errors }}
+      <label for="{{ form.status.id_for_label }}" class="form-label">Situação:<span class="elemento-asterisco">*</span></label>
+      {% render_field form.status class+="form-select" %}
+    </div>
+  </div>
+
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-salvar btn-success me-md-2"> <i class="fa-solid fa-check"></i> Salvar</button>
+  </div>
+</form>
+
+{% endblock %}

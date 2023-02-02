@@ -1,0 +1,108 @@
+{% extends 'core/base/base.html' %}
+{% load static widget_tweaks %}
+
+{% block title %}GE - Editar SERVIDOR{% endblock %}
+
+{% block content %} 
+<h2 class="h2-cadastro">Editar SERVIDOR</h2>
+<p class="aviso">Os campos com * são de preenchimento obrigatório</p>
+
+
+<form class="form-background" action="{% url 'core:servidor_update' servidor.id %}" method="post">
+    {% csrf_token %}
+    {{form.errors}}
+    <div class="row row-espacamento">
+        <div class="col-7">
+        {{ form.nome.errors }}
+        <label for="{{ form.nome.id_for_label }}" class="form-label">Nome<i class="elemento-asterisco">*</i></label>
+        {% render_field form.nome class+="form-control" placeholder="Nome" %}
+
+        </div>
+
+        <div class="col-3 data_nascimento">
+            {{ form.data_nascimento.errors }}
+            <label for="{{ form.data_nascimento.id_for_label }}" class="form-label">Data de Nascimento<i class="elemento-asterisco">*</i></label>
+            {% render_field form.data_nascimento class+="form-control" placeholder="2022-05-02" %}
+        </div>
+    </div>
+
+    <div class="row row-espacamento">
+        <div class="col-4">
+            {{ form.sexo.errors }}
+            <label for="{{ form.sexo.id_for_label }}" class="form-label">Sexo <label class="elemento-asterisco">*</label></label>
+            {% render_field form.sexo class+="form-select" placeholder="Sexo" %}
+        </div>
+
+        <div class="col-4">
+            {{ form.cpf.errors }}
+            <label for="{{ form.cpf.id_for_label }}" class="form-label">Cpf <label class="elemento-asterisco">*</label></label>
+            {% render_field form.cpf class+="form-control" placeholder="123.456.789-99" %}
+        </div>
+
+        <div class="col-4">
+            {{ form.telefone.errors }}
+            <label for="{{ form.telefone.id_for_label }}" class="form-label">Telefone <label class="elemento-asterisco">*</label></label>
+            {% render_field form.telefone class+="form-control" placeholder="(86)99999-9999" %}
+        </div>
+    </div>
+    
+    <div class="row row-espacamento">
+        <div class="col-7 ">
+            {{ form.email.errors }}
+            <label for="{{ form.email.id_for_label }}" class="form-label">Email <label class="elemento-asterisco">*</label></label>
+            {% render_field form.email class+="form-control" placeholder="nome@gmail.com" %}
+        </div>
+
+        <div class="col-3 offset-lg-1">
+            {{ form.estado_civil.errors }}
+            <label for="{{ form.estado_civil.id_for_label }}" class="form-label">Estado Civil <label class="elemento-asterisco">*</label></label>
+            {% render_field form.estado_civil class+="form-select" placeholder="Estado Civil" %}
+        </div>
+    </div>
+
+    <div class="row row-espacamento">
+        <div class="col-4">
+            {{ form.cep.errors }}
+            <label for="{{ form.cep.id_for_label }}" class="form-label">Cep</label>
+            {% render_field form.cep class+="form-control" placeholder="64000-000" %}
+        </div>
+
+        <div class="col-4">
+            {{ form.endereco.errors }}
+            <label for="{{ form.endereco.id_for_label }}" class="form-label">Endereço <label class="elemento-asterisco">*</label></label>
+            {% render_field form.endereco class+="form-control" placeholder="Endereço" %}
+        </div>
+
+        <div class="col-4">
+            {{ form.zona.errors }}
+            <label for="{{ form.zona.id_for_label }}" class="form-label">Zona <label class="elemento-asterisco">*</label></label>
+            {% render_field form.zona class+="form-select" placeholder="Zona" %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3 gap-3">
+            {{ form.tipo.errors }}
+            <label class="form-label">Função: </label>
+            {% render_field form.tipo class+="form-select" placeholder="Função" %}
+            
+        </div>
+
+        <div class="col-3 align-self-end">
+            <div class="form-check">
+               {% render_field form.is_active  class+="form-check-input"%}
+                <label for="{{ form.is.active.id_for_label }}" class="form-label">Ativo</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-salvar btn-success me-md-2"> 
+                <i class="fa-solid fa-check"></i> 
+                Salvar
+            </button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

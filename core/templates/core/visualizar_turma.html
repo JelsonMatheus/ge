@@ -1,0 +1,57 @@
+{% extends 'core/base/base.html' %}
+{% load static widget_tweaks %}
+
+
+
+{% block title %}GE - VISUALIZAR TURMA{% endblock %}
+
+{% block content %}
+
+<h2 class="h2-cadastro">TURMA</h2>
+
+
+<form class="form-background" action="/cadastrar-turma/" method="post" disabled="">
+   
+    <div class="row row-espacamento">
+        <div class="col-7">
+            <label class="form-label">Nome:</label>
+            <span>{{object.nome}}</span>
+        </div>
+
+        <div class="col-4">
+            <label class="form-label">Sala:</label>
+            <span>{{object.sala}}</span>
+        </div>
+    </div>
+
+    <div class="row row-espacamento">
+        <div class="col-7">
+            <label class="form-label">Turno:</label>
+            <span>{{object.get_turno_display}}</span>
+        </div>
+
+        <div class="col-4">
+            <label class="form-label">Tipo Atendimento: </label>
+            <span>{{object.get_tipo_atendimento_display}}</span>
+        </div>
+    </div>
+
+    <div>
+        <p class="form-label">Dias da Semanas:</p>
+        <div class="d-flex justify-content-start">
+            {% for dia in dia_selecionado %}
+            <span class="me-3">{{dia}}</span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-5">
+        <p class="form-label">Disciplinas:</p>
+        <div class="d-flex justify-content-start">
+            {% for disciplina in object.disciplinas.all %}
+            <span class="me-3">{{disciplina.nome}}</span><br>
+            {% endfor %}
+        </div>
+    </div>
+
+</form>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'core/base/base.html' %}
+{% load static widget_tweaks %}
+
+{% block title %}GE - VISUALIZAR ALUNO{% endblock %}
+
+{% block content %}
+<h2 class="h2-cadastro">ALUNO</h2>
+
+<form class="form-background">
+  <tr>
+    <div class="row row-espacamento">
+      <div class="col-5">
+        <label class="form-label">Nome : </label>
+        <td class="campo-visualizar">{{object.nome}}</td>
+      </div>
+
+      <div class="col-5">
+        <label class="form-label">Data de Nascimento : </label>
+        <td class="campo-visualizar">{{object.data_nascimento}}</td>
+      </div>
+
+      <div class="col-2">
+        <label class="form-label">Sexo:</label>
+        <span>{{object.get_sexo_display}}</span>
+      </div>
+    </div>
+
+    <div class="row row-espacamento">
+      <div class="col-5">
+        <label class="form-label">Email:</label>
+        <td class="campo-visualizar">{{object.email}}</td>
+      </div>
+      <div class="col-3">
+        <label class="form-label">CPF:</label>
+        <td class="campo-visualizar">{{object.cpf}}</td>
+      </div>
+      <div class="col-4">
+        <label class="form-label">Estado Civil:</label>
+        <span>{{object.get_estado_civil_display}}</span>
+      </div>
+    </div>
+
+    <div class="row row-espacamento">
+      <div class="col-5">
+        <label class="form-label">Endereço:</label>
+        <td class="campo-visualizar">{{object.endereco}}</td>
+      </div>
+      <div class="col-3">
+        <label class="form-label">CEP:</label>
+        <td class="badge bg-secondary">{{object.cep}}</td>
+      </div>
+      <div class="col-3">
+        <label class="form-label">Zona:</label>
+        <span>{{object.get_zona_display}}</span>
+      </div>
+    </div>
+
+    <div class="row row-espacamento">
+      <div class="col-5">
+        <label class="form-label">Nome da Mãe:</label>
+        <td class="campo-visualizar">{{object.nome_da_mae}}</td>
+      </div>
+      <div class="col-5">
+        <label class="form-label">CPF da Mãe:</label>
+        <td class="campo-visualizar">{{object.cpf_da_mae}}</td>
+      </div>
+    </div>
+
+    <div class="row row-espacamento">
+      <div class="col-5">
+        <label class="form-label">Nome do Pai:</label>
+        <td class="campo-visualizar">{{object.nome_do_pai}}</td>
+      </div>
+      <div class="col-5">
+        <label class="form-label">CPF do Pai:</label>
+        <td class="campo-visualizar">{{object.cpf_do_pai}}</td>
+      </div>
+    </div>
+
+    <div class="row row-espacamento">
+      <div class="col-6">
+        <label class="form-label">Responsável:</label>
+        <span>{{object.get_responsavel_display}}</span>
+      </div>
+    </div>
+  </tr>
+</form>
+{% endblock %}

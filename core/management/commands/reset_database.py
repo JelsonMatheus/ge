@@ -12,6 +12,8 @@ class Command(BaseCommand):
         if os.path.isfile(settings.BASE_DIR / 'db.sqlite3'):
             os.remove(settings.BASE_DIR / 'db.sqlite3')
 
+        management.call_command('makemigrations')
         management.call_command('migrate')
         management.call_command('loaddata', 'fixtures/usuarios.json')
+        management.call_command('loaddata', 'fixtures/disciplinas.json')
         self.stdout.write(self.style.SUCCESS('Successfully reset databas.'))
